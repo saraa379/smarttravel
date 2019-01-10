@@ -6,37 +6,50 @@
   display: none !important;
 }
 
-a {
-    color: white;
-    padding-left: 20px;
-    padding-right: 10px;
+/*Header styles*/
+header {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    color: #1D7CF2;
+    align-items: center;
+}
+header a {
+    padding-left: 10px;
+    padding-right: 5px;
     text-decoration: none;
     font-size: 0.9rem;
+    color: #1D7CF2;
 }
-.logo_link_Menu{
-  padding: 0px !important;
+header a.chosen {
+  color: #0147FA;
 }
-
-
-
-.logo, .logoText, nav, .searchMini {
+header a:hover {
+  color: #0147FA;
+}
+.logo, nav, .headerSecond, .headerFirst {
     display: inline;
-    color: white;
 }
-.logo_small_Menu{
-  left: 5px;
-  width: 126.975px;
-  height: 26.55px;
-}
-.headerTop {
+.headerFirst {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-between;
-  height: 50px;
+  justify-content: flex-start;
   align-items: center;
 }
-.headerMini {
-  min-height: 300px;
+/*Logo styles*/
+.logo img {
+  margin: 5px 5px 0 10px;
+  width: 40px;
+  height: 40px;
+}
+.headerSecond button {
+    background-color: inherit;
+    border: none;
+    color: #1D7CF2;
+    margin-right: 20px;
+    font-size: 0.9rem;
 }
 /*Menu for mobile screen*/
 .mobileMenu {
@@ -195,74 +208,3 @@ a {
   }
 
 }
-
-/*
-@media (max-height: 600px) {
-  .headerExtended {
-      height: 80%;
-  }
-
-}*/
-
-
-
-/*
-.wave1 {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  width: 100%;
-  z-index: 3;
-}
-.wave1_Path {
-  fill: rgb(244, 249, 253);;
-}
-.wave2 {
-  position: absolute;
-  bottom: -80px;
-  left: 0px;
-  width: 100%;
-  opacity: 0.2;
-  transform: scale(-1,1);
-  z-index: 2;
-}
-.wave_path2 {
-  fill: #FFF;
-}
-.rect_1_HEADER {
-  position: absolute;
-  right: -200px;
-  top:150px;
-  width: 350px;
-  height: 100px;
-  background-color: white;
-  opacity: 0.1;
-  border-radius: 70px;
-  transform: rotate(150deg);
-  z-index:-3;
-}
-.rect_2_HEADER {
-  position: absolute;
-  right: -200px;
-  top: 50px;
-  width: 550px;
-  height: 100px;
-  background-color: white;
-  opacity: 0.1;
-  border-radius: 70px;
-  transform: rotate(150deg);
-  z-index:-3;
-}
-.rect_3_HEADER {
-  position: absolute;
-  left: -70px;
-  top: -20px;
-  width: 380px;
-  height: 100px;
-  background-color: white;
-  opacity: 0.06;
-  border-radius: 70px;
-  transform: rotate(150deg);
-  z-index:-3;
-}
-*/

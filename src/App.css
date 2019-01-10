@@ -15,12 +15,7 @@
 header, footer {
   flex: none;
 }
-/*Header styles*/
-header {
-    width: 100%;
-    background-color: #e5e5e5;
-    height: 200px;
-}
+
 /*Content of the page*/
 .innerWrap {
   flex: 1 0 auto; /* 2 */

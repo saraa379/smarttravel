@@ -21,6 +21,6 @@ class Notexist extends Component {
 }
 
 const mapStateToProps = state => ({
-  insights: state.insights
+
 });
 export default connect(mapStateToProps,{actionClickTab})(Notexist);

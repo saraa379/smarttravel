@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import { Provider } from "react-redux";
 import Home from './components/Home.js';
 import Howitworks from './components/Howitworks.js';
+import OfferARide from './components/OfferARide.js';
 import Menu from './components/Menu.js';
 import Notexist from "./components/404.js"
 
@@ -16,9 +17,9 @@ class App extends Component {
             <Router>
                 <div className="AppWrap">
                     <Menu></Menu>
-
                     <Switch>
                         <Route path="/" component={Home} exact />
+                        <Route path="/offeraride" component={OfferARide} />
                         <Route path="/howitworks" component={Howitworks} />
                         <Route component={Notexist} />
                     </Switch>

@@ -5,15 +5,15 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {actionClickTab} from '../actions/menuActions.js';
 
-class InvestorRelations extends Component {
+class SearchARide extends Component {
 	componentDidMount(){
-		this.props.actionClickTab("investorrelations");
+		this.props.actionClickTab("searcharide");
 	}
 	render() {
 
 		return (
 			<div className="innerWrap">
-				 	<p>Investor Relations page</p>
+				 	<p>Search a ride page</p>
 			</div>
 		)
 	}
@@ -23,4 +23,4 @@ class InvestorRelations extends Component {
 const mapStateToProps = state => ({
 });
 
-export default connect(mapStateToProps,{actionClickTab})(InvestorRelations);
+export default connect(mapStateToProps,{actionClickTab})(SearchARide);

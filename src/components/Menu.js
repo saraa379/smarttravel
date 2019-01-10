@@ -1,6 +1,6 @@
 /*
-		Header component. This component show on the top of every page.
-		The component contains menu and search section.
+		Header component. This component shows on the top of every page.
+		The component contains menu.
 */
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
@@ -12,7 +12,7 @@ class Menu extends Component {
 
 	constructor(props) {
 			super(props);
-			this.state = {menuChecked: false,
+			this.state = {menuChecked: false
 									 };
 	}//end of constructor
 
@@ -20,42 +20,31 @@ class Menu extends Component {
 	render() {
 		const {currentTab} = this.props.currentTab
 
-		if (currentTab === "Home"){
 			return (
 				<header>
-						<div className="headerTop">
+								<div className="headerFirst">
+											<div className="logo">
+													<Link to="/">
+															<img src={require('../img/earth11-logo.png')} alt="Home" />
+													</Link>
+											</div>
+											<nav>
+													<Link className={(currentTab === "home") ? "chosen" : "notChosen"} to="/">Search a ride</Link>
+													<Link className={(currentTab === "offeraride") ? "chosen" : "notChosen"} to="/offeraride">Offer a ride</Link>
+													<Link className={(currentTab === "howitworks") ? "chosen" : "notChosen"} to="/howitworks">How it works</Link>
 
-								<div className="logo">
+											</nav>
 								</div>
-								<nav>
-										<Link to="/howitworks">How it works?</Link>
-										<Link to="/ourmission">Our Mission</Link>
-								</nav>
-						</div>
-
-				</header>
-			)
-		} else {
-			return (
-				<header>
-						<div className="headerTop">
-
-								<div className="logo">
+								<div className="headerSecond">
+									 <button>Log in</button>
 								</div>
-								<nav>
-										<Link to="/howitworks">How it works?</Link>
-										<Link to="/ourmission">Our Mission</Link>
-								</nav>
-						</div>
-
 				</header>
-			)
-		}
+			)//end of return
 
-	}
+	}//end of render
 
 } //end of component
 const mapStateToProps = state => ({
-  currentTab: state.currentTab,
+  currentTab: state.currentTab
 });
 export default connect(mapStateToProps,{actionClickTab})(Menu);
