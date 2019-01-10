@@ -5,15 +5,15 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {actionClickTab} from '../actions/menuActions.js';
 
-class SearchARide extends Component {
+class LogIn extends Component {
 	componentDidMount(){
-		this.props.actionClickTab("searcharide");
+		this.props.actionClickTab("login");
 	}
 	render() {
 
 		return (
 			<div className="innerWrap">
-				 	<p>Search a ride page</p>
+				 	<p>Log in page</p>
 			</div>
 		)
 	}
@@ -23,4 +23,4 @@ class SearchARide extends Component {
 const mapStateToProps = state => ({
 });
 
-export default connect(mapStateToProps,{actionClickTab})(SearchARide);
+export default connect(mapStateToProps,{actionClickTab})(LogIn);

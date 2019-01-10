@@ -36,7 +36,9 @@ class Menu extends Component {
 											</nav>
 								</div>
 								<div className="headerSecond">
-									 <button>Log in</button>
+									 <Link className={(currentTab === "login") ? "chosen" : "notChosen"} to="/login">
+									 				<button>Log in</button>
+									 </Link>
 								</div>
 				</header>
 			)//end of return
