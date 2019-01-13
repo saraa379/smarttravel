@@ -7,18 +7,29 @@ import {Link} from 'react-router-dom';
 import './Menu.css';
 import {connect} from 'react-redux';
 import {actionClickTab} from '../actions/menuActions.js';
+import Modal from 'react-responsive-modal';
 
 class Menu extends Component {
 
 	constructor(props) {
 			super(props);
-			this.state = {menuChecked: false
+			this.state = {menuChecked: false,
+										modalOpen: false,
+										currentModal: "login"
 									 };
 	}//end of constructor
 
+	onOpenModal = () => {
+	    this.setState({ modalOpen: true });
+	  };
+
+	onCloseModal = () => {
+	    this.setState({ modalOpen: false });
+	};
 
 	render() {
-		const {currentTab} = this.props.currentTab
+		const {currentTab} = this.props.currentTab;
+		const { modalOpen } = this.state;
 
 			return (
 				<header>
@@ -37,9 +48,17 @@ class Menu extends Component {
 								</div>
 								<div className="headerSecond">
 									 <Link className={(currentTab === "login") ? "chosen" : "notChosen"} to="/login">
-									 				<button>Log in</button>
+									 				<button onClick={this.onOpenModal}>Log in</button>
 									 </Link>
 								</div>
+								<Modal open={modalOpen} onClose={this.onCloseModal} closeOnEsc={true} center>
+										<div className={(this.state.currentModal === "login") ? "loginModalContent" : "notVisible"}>
+												<h2>Log in</h2>
+										</div>
+										<div className={(this.state.currentModal === "create") ? "createAccountModalContent" : "notVisible"}>
+												<h2>Create new account</h2>
+										</div>
+				        </Modal>
 				</header>
 			)//end of return
 
