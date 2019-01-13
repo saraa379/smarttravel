@@ -43,7 +43,6 @@ class Menu extends Component {
 													<Link className={(currentTab === "home") ? "chosen" : "notChosen"} to="/">Search a ride</Link>
 													<Link className={(currentTab === "offeraride") ? "chosen" : "notChosen"} to="/offeraride">Offer a ride</Link>
 													<Link className={(currentTab === "howitworks") ? "chosen" : "notChosen"} to="/howitworks">How it works</Link>
-
 											</nav>
 								</div>
 								<div className="headerSecond">
@@ -54,6 +53,13 @@ class Menu extends Component {
 								<Modal open={modalOpen} onClose={this.onCloseModal} closeOnEsc={true} center>
 										<div className={(this.state.currentModal === "login") ? "loginModalContent" : "notVisible"}>
 												<h2>Log in</h2>
+												<div className="form_content">
+													<div className="form">
+														<input type = "text" placeholder="Epost" />
+														<input type = "password" placeholder="Password" />
+														<button> Login </button>
+													</div>
+							 					</div>
 										</div>
 										<div className={(this.state.currentModal === "create") ? "createAccountModalContent" : "notVisible"}>
 												<h2>Create new account</h2>
