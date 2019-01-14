@@ -1,1 +1,2 @@
 export const TAB_CLICKED = 'TAB_CLICKED';
+export const CHANGE_LOGIN_STATUS = 'CHANGE_LOGIN_STATUS';

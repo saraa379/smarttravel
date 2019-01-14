@@ -67,7 +67,7 @@ header a:hover {
 			padding: 20px;
       min-width: 300px;
 	}
-  .form input {
+  .form input[type="text"], .form input[type="password"]  {
 		 outline: none;
 		 transition: .2s all linear;
 		 display: flex;
@@ -75,7 +75,7 @@ header a:hover {
 		 width: 100%;
 		 margin: 10px 0;
   }
-  .form button {
+  .formButton, .form button {
      color: white;
      background-color: #1D7CF2;
 		 border-radius: 5px;
@@ -91,7 +91,7 @@ header a:hover {
      flex-flow:  column nowrap;
      justify-content: center;
   }
-  .loginBottom p {
+  .loginBottom p, .errorLogin p {
       color: #4d4d4d;
       text-align: center;
       font-size: 0.9rem;
