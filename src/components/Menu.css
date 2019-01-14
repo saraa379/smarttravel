@@ -24,7 +24,7 @@ header a {
     color: #1D7CF2;
 }
 header a.chosen {
-  color: #0147FA;
+  color: #0D4F8B;
 }
 header a:hover {
   color: #0147FA;
@@ -65,6 +65,7 @@ header a:hover {
 }
 .form_content {
 			padding: 20px;
+      min-width: 300px;
 	}
   .form input {
 		 outline: none;
@@ -80,9 +81,34 @@ header a:hover {
 		 border-radius: 5px;
 		 font-size: 16px;
 		 line-height: 100%;
-		 padding: 5px 10px 5px 10px;
+		 padding: 10px 10px 5px 10px;
 		 width: 8em;
+     margin-top: 10px;
   }
+  .loginBottom {
+     margin-top: 20px;
+     display: flex;
+     flex-flow:  column nowrap;
+     justify-content: center;
+  }
+  .loginBottom p {
+      color: #4d4d4d;
+      text-align: center;
+      font-size: 0.9rem;
+  }
+  .loginBottom button {
+      font-size: 1rem;
+      margin: 0 auto;
+      padding-top: 5px;
+      color: #1D7CF2;
+      border: none;
+      background-color: inherit;
+      align-self: center;
+  }
+  .loginBottom button:hover {
+    color: #0147FA;
+  }
+
 /*Menu for mobile screen*/
 .mobileMenu {
     display: none;
@@ -143,15 +169,15 @@ header a:hover {
   }
 
 }
-@media (max-width: 465px) {
-  .checked {
-      position: absolute;
+@media (max-width: 400px) {
+  .loginModalContent h2, .createAccountModalContent h2 {
+    padding-left: 0;
+    padding-right: 0;
   }
-  .menuClosed {
-      width: 70px;
-  }
-  .hamburgerAbs {
-      margin-top: -25px;
-  }
+  .form_content {
+      padding-left: 0;
+      padding-right: 0;
+      min-width: 200px;
+  	}
 
 }

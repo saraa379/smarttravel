@@ -21,10 +21,20 @@ class Menu extends Component {
 
 	onOpenModal = () => {
 	    this.setState({ modalOpen: true });
-	  };
+	};
 
 	onCloseModal = () => {
 	    this.setState({ modalOpen: false });
+			if(this.state.currentModal === "create"){
+				 this.setState({ currentModal: "login" });
+			}
+	};
+
+	changeModalContentCreate = () => {
+	    this.setState({ currentModal: "create" });
+	};
+	changeModalContentLogin = () => {
+	    this.setState({ currentModal: "login" });
 	};
 
 	render() {
@@ -42,6 +52,7 @@ class Menu extends Component {
 											<nav>
 													<Link className={(currentTab === "home") ? "chosen" : "notChosen"} to="/">Search a ride</Link>
 													<Link className={(currentTab === "offeraride") ? "chosen" : "notChosen"} to="/offeraride">Offer a ride</Link>
+													<Link className={(currentTab === "sendbyatruck") ? "chosen" : "notChosen"} to="/sendbyatruck">Send by a truck</Link>
 													<Link className={(currentTab === "howitworks") ? "chosen" : "notChosen"} to="/howitworks">How it works</Link>
 											</nav>
 								</div>
@@ -50,8 +61,9 @@ class Menu extends Component {
 									 				<button onClick={this.onOpenModal}>Log in</button>
 									 </Link>
 								</div>
-								<Modal open={modalOpen} onClose={this.onCloseModal} closeOnEsc={true} center>
+								<Modal open={modalOpen} onClose={this.onCloseModal} center>
 										<div className={(this.state.currentModal === "login") ? "loginModalContent" : "notVisible"}>
+
 												<h2>Log in</h2>
 												<div className="form_content">
 													<div className="form">
@@ -60,9 +72,26 @@ class Menu extends Component {
 														<button> Login </button>
 													</div>
 							 					</div>
+
+												<div className="loginBottom">
+														<p>Not registered yet?</p>
+														<button onClick={this.changeModalContentCreate}>Create a account</button>
+
+												</div>
+
 										</div>
 										<div className={(this.state.currentModal === "create") ? "createAccountModalContent" : "notVisible"}>
-												<h2>Create new account</h2>
+												<h2>Create an account</h2>
+												<div className="form_content">
+													<div className="form">
+														<input type = "text" placeholder="Epost" />
+														<button> Send </button>
+													</div>
+							 					</div>
+
+												<div className="loginBottom">
+														<button onClick={this.changeModalContentLogin}>Back to login</button>
+												</div>
 										</div>
 				        </Modal>
 				</header>

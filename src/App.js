@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import Home from './components/Home.js';
 import Howitworks from './components/Howitworks.js';
 import OfferARide from './components/OfferARide.js';
+import SendByATruck from './components/SendByATruck.js';
 import LogIn from './components/LogIn.js';
 import Menu from './components/Menu.js';
 import Notexist from "./components/404.js"
@@ -21,6 +22,7 @@ class App extends Component {
                     <Switch>
                         <Route path="/" component={Home} exact />
                         <Route path="/offeraride" component={OfferARide} />
+                        <Route path="/sendbyatruck" component={SendByATruck} />
                         <Route path="/howitworks" component={Howitworks} />
                         <Route path="/login" component={LogIn} />
                         <Route component={Notexist} />
