@@ -50,7 +50,9 @@ class Menu extends Component {
   }
 	handleSubmitCreate(event) {
     event.preventDefault();
-		const { email, password, error, firstname, lastname, phone } = this.state;
+		var db = firebase.database();
+		const { email, password, error, firstname, lastname, phone, db } = this.state;
+
 		firebase
      .auth()
      .createUserWithEmailAndPassword(email, password)
@@ -59,30 +61,42 @@ class Menu extends Component {
 				 if(error !== null){
 	 				 this.setState({ error: null });
 	 			}
-				this.callLater(email, password, firstname, lastname, phone);
+
+				this.callLater(email, password, firstname, lastname, phone, db);
      })
      .catch((error) => {
        this.setState({ error: error.message });
 			 //console.log("Can't create account:" + (typeof error));
      });
   }
-	callLater(email, password, firstname, lastname, phone){
+	callLater(email, password, firstname, lastname, phone, db){
+
+
 			console.log("firstname:" + firstname);
 			console.log("lastname:" + lastname);
 			console.log("phone:" + phone);
 			console.log("email:" + email);
 			console.log("password:" + password);
+
 			const newUser = {
-		        firstname: firstname,
+						firstname: firstname,
 						lastname: lastname,
-		        phone: phone,
+						phone: phone,
 						email: email,
-		        password: password,
-		        adds: [],
-		        key: ""
-		      }//end of obj
-			//var userKey = firebase.database.ref('users/').push(newUser).key;
-			//firebase.database().ref('users/' + userKey + '/key').set(userKey);
+						password: password,
+						adds: [],
+						key: ""
+					}//end of obj
+			/*
+			firebase.database().ref('users/001').set(newUser).
+			then(() => {
+				console.log('inserted')
+			}).catch((error) => {
+				console.log(error);
+			});*/
+
+			var userKey = firebase.database().ref('users/').push(newUser).key;
+			firebase.database().ref('users/' + userKey + '/key').set(userKey);
 	};
 	onOpenModal = () => {
 	    this.setState({ modalOpen: true });
