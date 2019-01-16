@@ -7,6 +7,8 @@ import {Link} from 'react-router-dom';
 import './Menu.css';
 import {connect} from 'react-redux';
 import {actionClickTab} from '../actions/menuActions.js';
+import {actionChangeLoginStatus} from '../actions/loginStatusChangeAction.js';
+import {actionUpdateCurrentUser} from '../actions/updateCurrentUserAction.js';
 import Modal from 'react-responsive-modal';
 import firebase from '../firebase/firebase.js';
 
@@ -50,18 +52,18 @@ class Menu extends Component {
   }
 	handleSubmitCreate(event) {
     event.preventDefault();
-		var db = firebase.database();
 		const { email, password, error, firstname, lastname, phone, db } = this.state;
 
 		firebase
      .auth()
      .createUserWithEmailAndPassword(email, password)
      .then((user) => {
-       console.log("User account is created:" + user);
+       //console.log("User account is created:" + user);
 				 if(error !== null){
 	 				 this.setState({ error: null });
 	 			}
 
+				this.props.actionChangeLoginStatus(true); //login status is now logged in
 				this.callLater(email, password, firstname, lastname, phone, db);
      })
      .catch((error) => {
@@ -84,7 +86,6 @@ class Menu extends Component {
 						phone: phone,
 						email: email,
 						password: password,
-						adds: [],
 						key: ""
 					}//end of obj
 			/*
@@ -97,6 +98,12 @@ class Menu extends Component {
 
 			var userKey = firebase.database().ref('users/').push(newUser).key;
 			firebase.database().ref('users/' + userKey + '/key').set(userKey);
+			//var userId = firebase.auth().currentUser.uid;
+
+			let userObj = firebase.database().ref("users/" + userKey);
+				console.log("Current user is" + userObj.key);
+			//updating current user in the redux
+			this.props.actionUpdateCurrentUser(userObj);
 	};
 	onOpenModal = () => {
 	    this.setState({ modalOpen: true });
@@ -126,8 +133,17 @@ class Menu extends Component {
 	render() {
 		const {currentTab} = this.props.currentTab;
 		const { modalOpen, error } = this.state;
+		const {loginStatus} = this.props.loginStatus;
+		const {currentUser} = this.props.currentUser;
 
-		//console.log("Error is: " + error);
+		console.log("Login status is: " + loginStatus);
+
+		for (var key in currentUser) {
+			    if (currentUser.hasOwnProperty(key)) {
+							console.log("Current user values are: " + currentUser[key]);
+			    }
+		}
+
 			return (
 				<header>
 								<div className="headerFirst">
@@ -198,6 +214,8 @@ class Menu extends Component {
 
 } //end of component
 const mapStateToProps = state => ({
-  currentTab: state.currentTab
+  currentTab: state.currentTab,
+	loginStatus: state.loginStatus,
+	currentUser: state.currentUser
 });
-export default connect(mapStateToProps,{actionClickTab})(Menu);
+export default connect(mapStateToProps,{actionClickTab, actionChangeLoginStatus, actionUpdateCurrentUser})(Menu);
