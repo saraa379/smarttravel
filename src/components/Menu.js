@@ -33,7 +33,26 @@ class Menu extends Component {
 			this.handleChangePassword = this.handleChangePassword.bind(this);
 			this.handleSubmitCreate = this.handleSubmitCreate.bind(this);
 			this.callLater = this.callLater.bind(this);
+			this.logOut = this.logOut.bind(this);
 	}//end of constructor
+//User logs out
+	logOut(event) {
+		console.log("User is logged out");
+		this.setState({firstname: ""});
+		this.setState({lastname: ""});
+		this.setState({phone: ""});
+		this.setState({email: ""});
+		this.setState({password: ""});
+		this.props.actionChangeLoginStatus(false);
+		this.props.actionUpdateCurrentUser({});
+
+		//Signing out current user
+		firebase.auth().signOut().then(function() {
+			  console.log("Sign out successful");
+			}).catch(function(error) {
+			  console.log("Sign out unsuccessful: " + error.message);
+			});
+	}
 
 	handleChangeFirstname(event) {
     this.setState({firstname: event.target.value});
@@ -52,7 +71,7 @@ class Menu extends Component {
   }
 	handleSubmitCreate(event) {
     event.preventDefault();
-		const { email, password, error, firstname, lastname, phone, db } = this.state;
+		const { email, password, error, firstname, lastname, phone} = this.state;
 
 		firebase
      .auth()
@@ -64,22 +83,21 @@ class Menu extends Component {
 	 			}
 
 				this.props.actionChangeLoginStatus(true); //login status is now logged in
-				this.callLater(email, password, firstname, lastname, phone, db);
+				this.callLater(email, password, firstname, lastname, phone);
      })
      .catch((error) => {
        this.setState({ error: error.message });
 			 //console.log("Can't create account:" + (typeof error));
      });
   }
-	callLater(email, password, firstname, lastname, phone, db){
-
-
-			console.log("firstname:" + firstname);
-			console.log("lastname:" + lastname);
-			console.log("phone:" + phone);
-			console.log("email:" + email);
-			console.log("password:" + password);
-
+	callLater(email, password, firstname, lastname, phone){
+		/*
+			console.log("firstname: " + firstname);
+			console.log("lastname: " + lastname);
+			console.log("phone: " + phone);
+			console.log("email: " + email);
+			console.log("password: " + password);
+*/
 			const newUser = {
 						firstname: firstname,
 						lastname: lastname,
@@ -88,22 +106,16 @@ class Menu extends Component {
 						password: password,
 						key: ""
 					}//end of obj
-			/*
-			firebase.database().ref('users/001').set(newUser).
-			then(() => {
-				console.log('inserted')
-			}).catch((error) => {
-				console.log(error);
-			});*/
 
 			var userKey = firebase.database().ref('users/').push(newUser).key;
 			firebase.database().ref('users/' + userKey + '/key').set(userKey);
-			//var userId = firebase.auth().currentUser.uid;
+			//var userId = firebase.auth().currentUser.uid
+      newUser.key = userKey;
 
-			let userObj = firebase.database().ref("users/" + userKey);
-				console.log("Current user is" + userObj.key);
 			//updating current user in the redux
-			this.props.actionUpdateCurrentUser(userObj);
+			this.props.actionUpdateCurrentUser(newUser);
+			//closing the login modal
+			this.onCloseModal();
 	};
 	onOpenModal = () => {
 	    this.setState({ modalOpen: true });
@@ -137,13 +149,20 @@ class Menu extends Component {
 		const {currentUser} = this.props.currentUser;
 
 		console.log("Login status is: " + loginStatus);
-
+		//current user obj from redux store
+		console.log("firstname in render: " + currentUser.firstname);
+		console.log("lastname in render: " + currentUser.lastname);
+		console.log("phone in render: " + currentUser.phone);
+		console.log("email in render: " + currentUser.email);
+		console.log("passwordin render: " + currentUser.password);
+		console.log("key in render: " + currentUser.key);
+		/*
 		for (var key in currentUser) {
 			    if (currentUser.hasOwnProperty(key)) {
 							console.log("Current user values are: " + currentUser[key]);
 			    }
 		}
-
+*/
 			return (
 				<header>
 								<div className="headerFirst">
@@ -159,9 +178,13 @@ class Menu extends Component {
 													<Link className={(currentTab === "howitworks") ? "chosen" : "notChosen"} to="/howitworks">How it works</Link>
 											</nav>
 								</div>
+
 								<div className="headerSecond">
-									 <div className={(currentTab === "login") ? "chosen" : "notChosen"}>
+									 <div className={(loginStatus === false) ? "loginBtn" : "notVisible"}>
 									 				<button onClick={this.onOpenModal}>Log in</button>
+									 </div>
+									 <div className={(loginStatus === true) ? "logoutBtn" : "notVisible"}>
+									 				<button onClick={this.logOut}>Log out</button>
 									 </div>
 								</div>
 
