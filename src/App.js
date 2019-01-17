@@ -8,10 +8,12 @@ import Howitworks from './components/Howitworks.js';
 import OfferARide from './components/OfferARide.js';
 import SendByATruck from './components/SendByATruck.js';
 import Menu from './components/Menu.js';
-import Notexist from "./components/404.js"
-import Profile from "./components/Profile.js"
+import Notexist from "./components/404.js";
+import Profile from "./components/Profile.js";
+
 
 class App extends Component {
+
   render() {
     return (
       <Provider store={store}>

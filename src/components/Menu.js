@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import {actionClickTab} from '../actions/menuActions.js';
 import {actionChangeLoginStatus} from '../actions/loginStatusChangeAction.js';
 import {actionUpdateCurrentUser} from '../actions/updateCurrentUserAction.js';
+import {actionFetchUsers} from '../actions/fetchUsersAction.js';
 import Modal from 'react-responsive-modal';
 import firebase from '../firebase/firebase.js';
 
@@ -38,6 +39,10 @@ class Menu extends Component {
 			this.callLaterLogin = this.callLaterLogin.bind(this);
 			this.logOut = this.logOut.bind(this);
 	}//end of constructor
+
+	componentDidMount() {
+			this.props.actionFetchUsers();
+	}
 //User logs out
 	logOut(event) {
 		console.log("User is logged out");
@@ -142,12 +147,19 @@ class Menu extends Component {
 		 }
   }
 	callLaterLogin(email){
+			//accessing users from db
+			const {users} = this.props.users;
+			for(let child in users){
+						let r = users[child];
+							//console.log("user email: " + r.email);
+						if(r.email == email){
+							//updating current user in the redux
+							this.props.actionUpdateCurrentUser(r);
+						} //end of if else
+			}//end of for
 
-
-			//updating current user in the redux
-			//this.props.actionUpdateCurrentUser(newUser);
 			//closing the login modal
-			//this.onCloseModal();
+			this.onCloseModal();
 	};
 	onOpenModal = () => {
 	    this.setState({ modalOpen: true });
@@ -179,6 +191,7 @@ class Menu extends Component {
 		const { modalOpen, error } = this.state;
 		const {loginStatus} = this.props.loginStatus;
 		const {currentUser} = this.props.currentUser;
+
 
 		console.log("Login status is: " + loginStatus);
 		//current user obj from redux store
@@ -272,6 +285,7 @@ class Menu extends Component {
 const mapStateToProps = state => ({
   currentTab: state.currentTab,
 	loginStatus: state.loginStatus,
-	currentUser: state.currentUser
+	currentUser: state.currentUser,
+	users: state.users
 });
-export default connect(mapStateToProps,{actionClickTab, actionChangeLoginStatus, actionUpdateCurrentUser})(Menu);
+export default connect(mapStateToProps,{actionClickTab, actionChangeLoginStatus, actionUpdateCurrentUser, actionFetchUsers})(Menu);

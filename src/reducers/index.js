@@ -2,10 +2,12 @@ import { combineReducers } from "redux";
 import tabReducer from "./tabReducer";
 import loginStatusReducer from "./loginStatusReducer";
 import updateCurrentUserReducer from "./updateCurrentUserReducer";
+import fetchUsersReducer from "./fetchUsersReducer";
 
 
 export default combineReducers({
   currentTab: tabReducer,
   loginStatus: loginStatusReducer,
-  currentUser: updateCurrentUserReducer
+  currentUser: updateCurrentUserReducer,
+  users: fetchUsersReducer
 });
