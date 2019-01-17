@@ -1,0 +1,21 @@
+.visible {
+  display: block;
+}
+
+.notVisible {
+  display: none !important;
+}
+
+/*Login Message page styles*/
+
+.loginMessage {
+    height: 100%;
+    background-color: blue;
+}
+
+@media (max-width: 1200px) {
+
+}
+@media (max-width: 750px) {
+
+}
