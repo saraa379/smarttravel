@@ -24,7 +24,8 @@ class Menu extends Component {
 										phone: '',
 										email: '',
    									password: '',
-   									error: null
+   									error: null,
+										errorLogin: null
 									 };
 		  this.handleChangeFirstname = this.handleChangeFirstname.bind(this);
 			this.handleChangeLastname = this.handleChangeLastname.bind(this);
@@ -32,7 +33,9 @@ class Menu extends Component {
 			this.handleChangePhone = this.handleChangePhone.bind(this);
 			this.handleChangePassword = this.handleChangePassword.bind(this);
 			this.handleSubmitCreate = this.handleSubmitCreate.bind(this);
+			this.handleSubmitLogin = this.handleSubmitLogin.bind(this);
 			this.callLater = this.callLater.bind(this);
+			this.callLaterLogin = this.callLaterLogin.bind(this);
 			this.logOut = this.logOut.bind(this);
 	}//end of constructor
 //User logs out
@@ -117,6 +120,35 @@ class Menu extends Component {
 			//closing the login modal
 			this.onCloseModal();
 	};
+
+	handleSubmitLogin(event) {
+    event.preventDefault();
+		const { email, password, errorLogin} = this.state;
+		//console.log("Login button is clicked");
+		firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+		  // Handle Errors here.
+		  var errorCode = error.code;
+		  var errorMessage = error.message;
+			console.log("Login attemp uncessful: " + errorMessage);
+		});
+
+		var user = firebase.auth().currentUser;
+		 if (user) {
+			 console.log("User is signed in");
+			 this.props.actionChangeLoginStatus(true); //login status is now logged in
+			 this.callLaterLogin(email);
+		 } else {
+			 console.log("User is not signed in");
+		 }
+  }
+	callLaterLogin(email){
+
+
+			//updating current user in the redux
+			//this.props.actionUpdateCurrentUser(newUser);
+			//closing the login modal
+			//this.onCloseModal();
+	};
 	onOpenModal = () => {
 	    this.setState({ modalOpen: true });
 	};
@@ -184,6 +216,7 @@ class Menu extends Component {
 									 				<button onClick={this.onOpenModal}>Log in</button>
 									 </div>
 									 <div className={(loginStatus === true) ? "logoutBtn" : "notVisible"}>
+									 				<Link to="/profile"><img src={require('../img/profile.png')} alt="Profile" /></Link>
 									 				<button onClick={this.logOut}>Log out</button>
 									 </div>
 								</div>
@@ -193,11 +226,11 @@ class Menu extends Component {
 
 												<h2>Log in</h2>
 												<div className="form_content">
-													<div className="form">
-														<input type = "text" placeholder="Epost" />
-														<input type = "password" placeholder="Password" />
-														<button> Login </button>
-													</div>
+													<form className="form" onSubmit={this.handleSubmitLogin}>
+														<input type = "text" placeholder="Epost" onChange={this.handleChangeEmail}/>
+														<input type = "password" placeholder="Password" onChange={this.handleChangePassword}/>
+														<input className="formButton" type="submit" value="Login"/>
+													</form>
 							 					</div>
 
 												<div className="loginBottom">

@@ -9,6 +9,7 @@ import OfferARide from './components/OfferARide.js';
 import SendByATruck from './components/SendByATruck.js';
 import Menu from './components/Menu.js';
 import Notexist from "./components/404.js"
+import Profile from "./components/Profile.js"
 
 class App extends Component {
   render() {
@@ -23,6 +24,7 @@ class App extends Component {
                         <Route path="/offeraride" component={OfferARide} />
                         <Route path="/sendbyatruck" component={SendByATruck} />
                         <Route path="/howitworks" component={Howitworks} />
+                        <Route path="/profile" component={Profile} />
                         <Route component={Notexist} />
                     </Switch>
                     <footer>
