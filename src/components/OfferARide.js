@@ -18,11 +18,8 @@ class OfferARide extends Component {
 
 		return (
 			<div className="innerWrap">
-						<div className={(loginStatus === false) ? "loginMessage" : "notVisible"}>
-									 Offer a Ride Login message
-						</div>
-						<div className={(loginStatus === true) ? "OfferARideForm" : "notVisible"}>
-									 Offer a Ride form
+						<div className="OfferARideHero">
+									 <h2>Make you journey more enjoyable with others</h2>
 						</div>
 			</div>
 		)
