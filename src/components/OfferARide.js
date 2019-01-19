@@ -19,7 +19,11 @@ class OfferARide extends Component {
 		return (
 			<div className="innerWrap">
 						<div className="OfferARideHero">
-									 <h2>Make you journey more enjoyable with others</h2>
+									 <h2>Wanna offer a ride?</h2>
+									 <h2>A Good Choice</h2>
+									 <p>Make you journey more enjoyable with others</p>
+						</div>
+						<div className="OfferARideContent">
 						</div>
 			</div>
 		)

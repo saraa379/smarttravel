@@ -9,7 +9,7 @@
 /*Header styles*/
 header {
     width: 100%;
-    background-color: white;
+    background-color: transparent;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
