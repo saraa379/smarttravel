@@ -50,7 +50,7 @@
     color: #575E66;
     width: 80%;
     border: 2px solid #6B7380;
-    border-radius: 5px;
+    border-radius: 3px;
     /*
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
     margin: 10px auto;
@@ -62,12 +62,21 @@
     justify-content: flex-start;
 }
 .OfferARideContent h2 {
-    margin: 20px;
+    margin: 30px;
 }
-.OfferARideContent hr {
-    color: grey;
+.OfferARideContent h3 {
+    margin: 30px;
+}
+.OfferARideContent .line {
+    background-color: grey;
     margin: 10px;
+    height: 1px;
 }
+.selectDiv select {
+    height: 30px;
+    width: 150px;
+}
+
 @media (max-width: 1200px) {
 
 }
