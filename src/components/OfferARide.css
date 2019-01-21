@@ -61,20 +61,39 @@
     flex-flow: column nowrap;
     justify-content: flex-start;
 }
-.OfferARideContent h2 {
-    margin: 30px;
+.From {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
 }
 .OfferARideContent h3 {
-    margin: 30px;
+    margin: 20px;
 }
 .OfferARideContent .line {
     background-color: grey;
     margin: 10px;
     height: 1px;
 }
+.selects {
+    display: inline-flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.selectDiv {
+    display: inline-flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
 .selectDiv select {
     height: 30px;
     width: 150px;
+}
+.selectDiv p {
+    margin-right: 30px;
 }
 
 @media (max-width: 1200px) {
