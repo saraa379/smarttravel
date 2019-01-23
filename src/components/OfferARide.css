@@ -45,6 +45,8 @@
 }
 .OfferARideHero .lastP {
   font-size: 1rem;
+  font-style: italic;
+  font-family: 'Calligraffitti';
 }
 .OfferARideContent {
     color: #575E66;
@@ -83,22 +85,64 @@
 }
 .selectDiv {
     display: inline-flex;
-    flex-flow: row wrap;
+    flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
     margin: 20px;
+}
+.formSection {
+    position: relative;
+    margin-bottom: 25px;
 }
 .selectDiv select {
     height: 30px;
     width: 150px;
 }
-.selectDiv p {
+.selectDiv label {
     margin-right: 30px;
+    font-weight: bold;
 }
+.selectDiv div {
+    display: block;
+}
+.OfferARideContent form {
+    min-width: 300px;
+    position: relative;
+}
+/*Search field styles*/
+.offer input[type="text"] {
+   outline: none;
+   padding: 8px;
+   width: 100%;
+   margin-top: 10px;
+   margin-bottom: 2px !important;
+   color: #575E66;
+   border: 1px solid grey;
+   height: 35px;
+   border-radius: 3px;
+}
+.cityResultDiv {
+    max-height: 150px;
+    overflow-y: scroll;
+    border: 1px solid #e7e7e7;
+    position: absolute;
+    width: 100%;
+    background-color: white;
+}
+.city {
+    padding: 5px;
+}
+.city:hover {
+    background-color: #e3e3e3;
+    border: 1px solid #e7e7e7;
+}
+
 
 @media (max-width: 1200px) {
 
 }
-@media (max-width: 750px) {
-
+@media (max-width: 408px) {
+  .OfferARideContent form {
+      min-width: 100px;
+  }
 }
