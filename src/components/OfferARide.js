@@ -7,6 +7,10 @@ import {connect} from 'react-redux';
 import {actionClickTab} from '../actions/menuActions.js';
 import './OfferARide.css';
 import _ from 'lodash';
+import DayPicker from 'react-day-picker';
+import './DatePicker.css';
+import 'react-day-picker/lib/style.css';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
 
 const cityArray = [{title: "Alingsås", county: "Västra Götaland"},
 {title: "Arboga", county: "Västmanland"},
@@ -184,18 +188,24 @@ class OfferARide extends Component {
 										term:"",
 										toCityResultVisible: false,
 										toCityResult: [],
-										toTerm:""
+										toTerm:"",
+										selectedDay: undefined
 		  };
 			this.searchHandler = this.searchHandler.bind(this);
 			this.citySelect = this.citySelect.bind(this);
 			this.toSearchHandler = this.toSearchHandler.bind(this);
 			this.toCitySelect = this.toCitySelect.bind(this);
+			this.handleDayChange = this.handleDayChange.bind(this);
 	}//end of constructor
 
 
 	componentDidMount(){
 		this.props.actionClickTab("offeraride");
 	}
+
+	handleDayChange(day) {
+    this.setState({ selectedDay: day });
+  }
 
 	citySelect(city) {
 			console.log("Selected city is: " + city.title);
@@ -267,7 +277,7 @@ toSearchHandler(event){
 
 	render() {
 		const {loginStatus} = this.props.loginStatus;
-		const { term, cityResult, cityResultVisible, toTerm, toCityResult, toCityResultVisible } = this.state;
+		const { term, cityResult, cityResultVisible, toTerm, toCityResult, toCityResultVisible, selectedDay } = this.state;
 		//var fromCounty = this.state.selectBoxValueStartCounty;
 		//console.log("Selected county name is: " + fromCounty);
 
@@ -320,6 +330,21 @@ toSearchHandler(event){
 																      )
 																		}
 																		</div>
+																	</div>
+
+																	<div className="formSection">
+																			<label>Date</label>
+																			<div>
+																        {selectedDay && <p>Day: {selectedDay.toLocaleDateString()}</p>}
+																        {!selectedDay && <p>Choose a day</p>}
+																        <DayPickerInput
+																							dayPickerProps={{
+																								month: new Date(2018, 10),
+																								showWeekNumbers: true,
+																								todayButton: 'Today',
+																							}}
+																							onDayChange={this.handleDayChange} />
+																      </div>
 																	</div>
 															</form>
 													</div>
