@@ -8,14 +8,11 @@ import {actionClickTab} from '../actions/menuActions.js';
 import './OfferARide.css';
 import _ from 'lodash';
 import Calendar from './Calendar.js';
-//import DayPicker from 'react-day-picker';
-//import './DatePicker.css';
-//import 'react-day-picker/lib/style.css';
-//import DayPickerInput from 'react-day-picker/DayPickerInput';
+
 
 const style = {
   position: "relative",
-  margin: "50px auto"
+  margin: "0 auto"
 }
 
 const cityArray = [{title: "Alingsås", county: "Västra Götaland"},
@@ -195,7 +192,11 @@ class OfferARide extends Component {
 										toTerm:"",
 										selectedDay: "",
 										datePickerVisible: false,
-										dateArray: []
+										dateArray: [],
+										checked: false,
+										roundSelectedDay: "",
+										roundDateArray: [],
+										roundDatePickerVisible: false,
 		  };
 			this.searchHandler = this.searchHandler.bind(this);
 			this.citySelect = this.citySelect.bind(this);
@@ -203,21 +204,39 @@ class OfferARide extends Component {
 			this.toCitySelect = this.toCitySelect.bind(this);
 			this.showDatePicker = this.showDatePicker.bind(this);
 			this.datePickerInputChange = this.datePickerInputChange.bind(this);
+			this.roundShowDatePicker = this.roundShowDatePicker.bind(this);
+			this.roundDatePickerInputChange = this.roundDatePickerInputChange.bind(this);
+			this.handleCheck = this.handleCheck.bind(this);
 	}//end of constructor
 
 
 	componentDidMount(){
 		this.props.actionClickTab("offeraride");
 	}
+	//Toggles the Round trip checkbox
+		handleCheck() {
+			var checked = this.state.checked;
+			this.setState({checked: !checked});
+			//console.log("Checkbox status is: " + this.state.checked);
+	  }
 //Toggles date picker
 	showDatePicker() {
 		var datePickerVisibility = this.state.datePickerVisible;
     this.setState({ datePickerVisible: !datePickerVisibility });
   }
+	roundShowDatePicker() {
+		var datePickerVisibility = this.state.roundDatePickerVisible;
+    this.setState({ roundDatePickerVisible: !datePickerVisibility });
+  }
 	datePickerInputChange() {
     this.setState({ datePickerVisible: true });
 		this.setState({ selectedDay: "" });
 		this.setState({ dateArray: [] });
+  }
+	roundDatePickerInputChange() {
+    this.setState({ roundDatePickerVisible: true });
+		this.setState({ roundSelectedDay: "" });
+		this.setState({ roundDateArray: [] });
   }
 	onDayClick = (e, day, month, year) => {
 			var date = year + "/" + month + "/" + day;
@@ -230,6 +249,18 @@ class OfferARide extends Component {
 			dateArray.push(day);
 			this.setState({ dateArray: dateArray });
 	 }
+
+	 RoundOnDayClick = (e, day, month, year) => {
+ 			var date = year + "/" + month + "/" + day;
+ 			//console.log("The chosen date is: " + date);
+ 			this.setState({ roundSelectedDay: date });
+ 			this.setState({ roundDatePickerVisible: false })
+ 			var dateArray = [];
+ 			dateArray.push(year);
+ 			dateArray.push(month);
+ 			dateArray.push(day);
+ 			this.setState({ roundDateArray: dateArray });
+ 	 }
 	citySelect(city) {
 			console.log("Selected city is: " + city.title);
 			this.setState({ cityResult: [] });
@@ -300,8 +331,11 @@ toSearchHandler(event){
 
 	render() {
 		const {loginStatus} = this.props.loginStatus;
-		const { term, cityResult, cityResultVisible, toTerm, toCityResult, toCityResultVisible, selectedDay, datePickerVisible } = this.state;
+		const { term, cityResult, cityResultVisible, toTerm, toCityResult,
+			toCityResultVisible, selectedDay, datePickerVisible, checked,
+		  roundSelectedDay, roundDatePickerVisible, } = this.state;
 		//var fromCounty = this.state.selectBoxValueStartCounty;
+		//console.log("Checkbox status is: " + checked);
 		//console.log("Selected date is: " + dateArray[0] + "//" + dateArray[1] + "//" + dateArray[2]);
 
 		//Generating search results
@@ -364,6 +398,20 @@ toSearchHandler(event){
 																						/>
 																      </div>
 																	</div>
+
+																	<div className="formSection checkReturn">
+																			<label>Round trip</label>
+																			<input type="checkbox" onChange={this.handleCheck} defaultChecked={this.state.checked}/>
+																	</div>
+
+																	<div className={(checked) ? "formSection" : "notVisible"}>
+																			<label>Return Date</label>
+																			<input type = "text" placeholder="Choose a return date" onClick={this.roundShowDatePicker} onChange={this.roundDatePickerInputChange} value={roundSelectedDay}/>
+																			<div className={(roundDatePickerVisible) ? "datePicker" : "notVisible"}>
+
+																      </div>
+																	</div>
+
 															</form>
 													</div>
 										</div>

@@ -128,6 +128,8 @@
     position: absolute;
     width: 100%;
     background-color: white;
+    opacity: 1;
+    z-index: 10
 }
 .city {
     padding: 5px;
@@ -142,6 +144,23 @@
   position: absolute;
   width: 100%;
   background-color: white;
+  opacity: 1;
+  z-index: 10
+}
+
+/*Round trip styles*/
+.checkReturn {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkReturn input[type="checkbox"] {
+    align-self: center;
+}
+.checkReturn label {
+    align-self: center;
 }
 
 @media (max-width: 1200px) {

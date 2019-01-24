@@ -9,7 +9,6 @@ tr {
 
 .calendar-container {
     border: 2px solid skyblue;
-    margin: 0 auto !important;
 }
 
 .calendar {
@@ -60,7 +59,7 @@ tr {
     color: white;
 }
 .selected-day {
-    background-color:yellow;
+    background-color: #E8E8E8;
     width: 28px;
     height: 28px;
     line-height: 28px;
