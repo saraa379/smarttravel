@@ -7,10 +7,16 @@ import {connect} from 'react-redux';
 import {actionClickTab} from '../actions/menuActions.js';
 import './OfferARide.css';
 import _ from 'lodash';
-import DayPicker from 'react-day-picker';
-import './DatePicker.css';
-import 'react-day-picker/lib/style.css';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
+import Calendar from './Calendar.js';
+//import DayPicker from 'react-day-picker';
+//import './DatePicker.css';
+//import 'react-day-picker/lib/style.css';
+//import DayPickerInput from 'react-day-picker/DayPickerInput';
+
+const style = {
+  position: "relative",
+  margin: "50px auto"
+}
 
 const cityArray = [{title: "Alingsås", county: "Västra Götaland"},
 {title: "Arboga", county: "Västmanland"},
@@ -177,8 +183,6 @@ const cityArray = [{title: "Alingsås", county: "Västra Götaland"},
 {title: "Östhammar", county: "Stockholm"}];
 
 
-
-
 class OfferARide extends Component {
 	constructor(props) {
 			super(props);
@@ -189,24 +193,43 @@ class OfferARide extends Component {
 										toCityResultVisible: false,
 										toCityResult: [],
 										toTerm:"",
-										selectedDay: undefined
+										selectedDay: "",
+										datePickerVisible: false,
+										dateArray: []
 		  };
 			this.searchHandler = this.searchHandler.bind(this);
 			this.citySelect = this.citySelect.bind(this);
 			this.toSearchHandler = this.toSearchHandler.bind(this);
 			this.toCitySelect = this.toCitySelect.bind(this);
-			this.handleDayChange = this.handleDayChange.bind(this);
+			this.showDatePicker = this.showDatePicker.bind(this);
+			this.datePickerInputChange = this.datePickerInputChange.bind(this);
 	}//end of constructor
 
 
 	componentDidMount(){
 		this.props.actionClickTab("offeraride");
 	}
-
-	handleDayChange(day) {
-    this.setState({ selectedDay: day });
+//Toggles date picker
+	showDatePicker() {
+		var datePickerVisibility = this.state.datePickerVisible;
+    this.setState({ datePickerVisible: !datePickerVisibility });
   }
-
+	datePickerInputChange() {
+    this.setState({ datePickerVisible: true });
+		this.setState({ selectedDay: "" });
+		this.setState({ dateArray: [] });
+  }
+	onDayClick = (e, day, month, year) => {
+			var date = year + "/" + month + "/" + day;
+			//console.log("The chosen date is: " + date);
+			this.setState({ selectedDay: date });
+			this.setState({ datePickerVisible: false });
+			var dateArray = [];
+			dateArray.push(year);
+			dateArray.push(month);
+			dateArray.push(day);
+			this.setState({ dateArray: dateArray });
+	 }
 	citySelect(city) {
 			console.log("Selected city is: " + city.title);
 			this.setState({ cityResult: [] });
@@ -277,9 +300,9 @@ toSearchHandler(event){
 
 	render() {
 		const {loginStatus} = this.props.loginStatus;
-		const { term, cityResult, cityResultVisible, toTerm, toCityResult, toCityResultVisible, selectedDay } = this.state;
+		const { term, cityResult, cityResultVisible, toTerm, toCityResult, toCityResultVisible, selectedDay, datePickerVisible } = this.state;
 		//var fromCounty = this.state.selectBoxValueStartCounty;
-		//console.log("Selected county name is: " + fromCounty);
+		//console.log("Selected date is: " + dateArray[0] + "//" + dateArray[1] + "//" + dateArray[2]);
 
 		//Generating search results
 		/*
@@ -334,16 +357,11 @@ toSearchHandler(event){
 
 																	<div className="formSection">
 																			<label>Date</label>
-																			<div>
-																        {selectedDay && <p>Day: {selectedDay.toLocaleDateString()}</p>}
-																        {!selectedDay && <p>Choose a day</p>}
-																        <DayPickerInput
-																							dayPickerProps={{
-																								month: new Date(2018, 10),
-																								showWeekNumbers: true,
-																								todayButton: 'Today',
-																							}}
-																							onDayChange={this.handleDayChange} />
+																			<input type = "text" placeholder="Choose a date" onClick={this.showDatePicker} onChange={this.datePickerInputChange} value={selectedDay}/>
+																			<div className={(datePickerVisible) ? "datePicker" : "notVisible"}>
+																						<Calendar style={style} width="302px"
+																						          onDayClick={(e, day, month, year)=> this.onDayClick(e, day, month, year)}
+																						/>
 																      </div>
 																	</div>
 															</form>

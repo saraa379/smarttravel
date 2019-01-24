@@ -137,6 +137,12 @@
     border: 1px solid #e7e7e7;
 }
 
+/*Date Picker section styles*/
+.datePicker {
+  position: absolute;
+  width: 100%;
+  background-color: white;
+}
 
 @media (max-width: 1200px) {
 
