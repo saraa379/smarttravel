@@ -8,6 +8,7 @@ import {actionClickTab} from '../actions/menuActions.js';
 import './OfferARide.css';
 import _ from 'lodash';
 import Calendar from './Calendar.js';
+import firebase from '../firebase/firebase.js';
 
 
 const style = {
@@ -202,7 +203,11 @@ class OfferARide extends Component {
                     chosenCity: "empty",
                     toChosenCity: "empty",
                     chosenCityError: false,
-                    toChosenCityError: false
+                    toChosenCityError: false,
+                    dateError: false,
+                    roundDateError: false,
+                    priceError: false,
+                    contentError: false
 		  };
 			this.searchHandler = this.searchHandler.bind(this);
 			this.citySelect = this.citySelect.bind(this);
@@ -226,35 +231,124 @@ class OfferARide extends Component {
   //Submits the Offfer to database
   handleSubmitOffer(event) {
     event.preventDefault();
+    const {currentUser} = this.props.currentUser;
+
     const {loginStatus} = this.props.loginStatus;
-    const { chosenCity, toChosenCity, dateArray, roundSelectedDay,
-            roundDateArray, price, content, cityResultVisible, toChosenCityError } = this.state;
+    const { chosenCity, toChosenCity, dateArray, roundDateArray, price, content,
+            cityResultVisible, toCityResultVisible, datePickerVisible, checked,
+            roundDateError, roundDatePickerVisible } = this.state;
     if (loginStatus === false) {
         console.log("The user is not logged in");
     }
     if (chosenCity === "empty" || cityResultVisible === true){
         this.setState({chosenCityError: true});
     }
-    if (toChosenCity === "empty" || toChosenCityError === true){
+    if (toChosenCity === "empty" || toCityResultVisible === true){
         this.setState({toChosenCityError: true});
     }
-    if (loginStatus === true && chosenCity !== "empty" && toChosenCity !== "empty" && dateArray !== [] && price !== "" && content !== ""){
-      console.log("Offer form is submitted");
+    if (dateArray.length < 1 || datePickerVisible === true){
+        this.setState({dateError: true});
     }
+    if ((checked === true && roundDateArray.length < 1) || (checked === true && roundDatePickerVisible === true)){
+        this.setState({roundDateError: true});
+        //console.log("Round date error message: " + this.state.roundDateError);
+    }
+    if (price === ""){
+        this.setState({priceError: true});
+        //console.log("Price in submit: " + price);
+    }
+    if (content === ""){
+        this.setState({contentError: true});
+        //console.log("Price in submit: " + price);
+    }
+    if (loginStatus === true && chosenCity !== "empty" && toChosenCity !== "empty"
+        && dateArray.length >= 1 && price !== "" && content !== "" && roundDateError === false){
+      console.log("Offer form is submitted");
 
-  }
+      const newOffer = {
+						fromCity: chosenCity,
+						toCity: toChosenCity,
+						dateArray: dateArray,
+						price: price,
+						content: content,
+						returntravelkey:"",
+						ownerKey: currentUser.key,
+						applicants:["empty"],
+						key: ""
+				}//end of obj
+        //Checks if there is return travel
+        if (checked === true && roundDateArray.length > 1) {
+          const newReturn = {
+                fromCity: toChosenCity,
+                toCity: chosenCity,
+                dateArray: roundDateArray,
+                price: price,
+                content: content,
+                returntravelkey:"",
+                ownerKey: currentUser.key,
+                applicants:["empty"],
+                key: ""
+            }//end of obj
+            var returnTravelKey = firebase.database().ref('travels/').push(newReturn).key;
+       			firebase.database().ref('travels/' + returnTravelKey + '/key').set(returnTravelKey);
+            newOffer.returntravelkey = returnTravelKey;
+            //Adding travel into user object in the db
+            //var offeredTravelsReturn = currentUser.offeredtravels;
+            //offeredTravelsReturn.push(travelKey);
+            //firebase.database().ref('users/' + currentUser.key + '/offeredtravels').set(offeredTravelsReturn);
+        }//end of if return
+
+        //Adding travel add to database
+        var travelKey = firebase.database().ref('travels/').push(newOffer).key;
+        firebase.database().ref('travels/' + travelKey + '/key').set(travelKey);
+
+        //Adding travel into user object in the db
+
+        //var travels = currentUser.offeredtravels;
+        //console.log("Travels from user submit: " + travels[0])
+        //offeredTravels.push(travelKey);
+        //firebase.database().ref('users/' + currentUser.key + '/offeredtravels').set(offeredTravels);
+
+       //Clears the form
+       this.setState({chosenCity: "empty"});
+       this.setState({toChosenCity: "empty"});
+       this.setState({term:""});
+       this.setState({toTerm:""});
+       this.setState({selectedDay: ""});
+       this.setState({dateArray: []});
+       this.setState({checked: false});
+       this.setState({roundSelectedDay: ""});
+       this.setState({roundDateArray: []});
+       this.setState({content: ""});
+       this.setState({price: ""});
+       this.setState({roundDatePickerVisible: false});
+
+    }//end of if
+
+
+  }//end of function
   //price input
   priceChange(event) {
     this.setState({price: event.target.value});
+    if(event.target.value !== ""){
+        this.setState({priceError: false});
+    }
   }
   //Content add from textarea
   handleChangeTextArea(event) {
     this.setState({content: event.target.value});
+    if(event.target.value !== ""){
+        this.setState({contentError: false});
+    }
   }
 	//Toggles the Round trip checkbox
 		handleCheck() {
 			var checked = this.state.checked;
 			this.setState({checked: !checked});
+      if (checked = true){
+          this.setState({roundDateError: false});
+      }
+
 			//console.log("Checkbox status is: " + this.state.checked);
 	  }
 //Toggles date picker
@@ -270,11 +364,16 @@ class OfferARide extends Component {
     this.setState({ datePickerVisible: true });
 		this.setState({ selectedDay: "" });
 		this.setState({ dateArray: [] });
+    this.setState({ dateError: true });
   }
 	roundDatePickerInputChange() {
     this.setState({ roundDatePickerVisible: true });
 		this.setState({ roundSelectedDay: "" });
 		this.setState({ roundDateArray: [] });
+    if (this.state.checked === true){
+      this.setState({ roundDateError: true });
+    }
+
   }
 	onDayClick = (e, day, month, year) => {
 			var date = year + "/" + month + "/" + day;
@@ -286,6 +385,7 @@ class OfferARide extends Component {
 			dateArray.push(month);
 			dateArray.push(day);
 			this.setState({ dateArray: dateArray });
+      this.setState({ dateError: false });
 	 }
 
 	 RoundOnDayClick = (e, day, month, year) => {
@@ -298,6 +398,7 @@ class OfferARide extends Component {
  			dateArray.push(month);
  			dateArray.push(day);
  			this.setState({ roundDateArray: dateArray });
+      this.setState({ roundDateError: false });
  	 }
    //selects city from drop down list
 	citySelect(city) {
@@ -377,11 +478,18 @@ toSearchHandler(event){
 
 	render() {
     const {loginStatus} = this.props.loginStatus;
+
 		const { term, cityResult, cityResultVisible, toTerm, toCityResult,
 			toCityResultVisible, selectedDay, datePickerVisible, checked,
 		  roundSelectedDay, roundDatePickerVisible, } = this.state;
-		//var fromCounty = this.state.selectBoxValueStartCounty;
-		//console.log("Checkbox status is: " + checked);
+      /*
+      if(loginStatus === true) {
+        const {currentUser} = this.props.currentUser;
+        console.log("Offered travels in user render: " + currentUser.offeredtravels[0]);
+      }*/
+
+    //console.log("Offered travels in user render: " + currentUser.offeredtravels);
+    //console.log("Price error message: " + this.state.priceError);
 		//console.log("Selected date is: " + dateArray[0] + "//" + dateArray[1] + "//" + dateArray[2]);
 
 		//Generating search results
@@ -439,6 +547,7 @@ toSearchHandler(event){
 
 																	<div className="formSection">
 																			<label>Date</label>
+                                      <p className={(this.state.dateError === true) ? "errorMsg" : "notVisible"}>* Please choose a date</p>
 																			<input type = "text" placeholder="Choose a date" onClick={this.showDatePicker} onChange={this.datePickerInputChange} value={selectedDay}/>
 																			<div className={(datePickerVisible) ? "datePicker" : "notVisible"}>
 																						<Calendar style={style} width="302px"
@@ -449,10 +558,11 @@ toSearchHandler(event){
 
 																	<div className="formSection checkReturn">
 																			<label>Round trip</label>
+                                      <p className={(this.state.roundDateError === true) ? "errorMsg" : "notVisible"}>* Please choose a return date</p>
 																			<input type="checkbox" onChange={this.handleCheck} defaultChecked={this.state.checked}/>
 																	</div>
 
-																	<div className={(checked) ? "formSection" : "notVisible"}>
+																	<div className={(checked === true) ? "formSection" : "notVisible"}>
 																			<label>Return Date</label>
 																			<input type = "text" placeholder="Choose a return date" onClick={this.roundShowDatePicker} onChange={this.roundDatePickerInputChange} value={roundSelectedDay}/>
 																			<div className={(roundDatePickerVisible) ? "datePicker" : "notVisible"}>
@@ -464,16 +574,18 @@ toSearchHandler(event){
 
                                   <div className="formSection">
 																			<label>Price</label>
+                                      <p className={(this.state.priceError === true) ? "errorMsg" : "notVisible"}>* Please enter a fee</p>
 																			<input type = "text" placeholder="Enter a price" onChange={this.priceChange} value={this.state.price}/>
 																	</div>
 
                                   <div className="formSection">
 																			<label>Description</label>
+                                      <p className={(this.state.contentError === true) ? "errorMsg" : "notVisible"}>* Please enter a description about a trip</p>
                                       <textarea placeholder="Enter description here ..." rows="7" onChange={this.handleChangeTextArea} value={this.state.content}></textarea>
 																	</div>
 
                                   <div className={(loginStatus === false) ? "formSection" : "notVisible"}>
-          															<p className="loginError">* Please login to submit you add!</p>
+          															<p className="loginError">* Please login to submit your add!</p>
           												</div>
 
                                   <div className="formSection">
@@ -492,7 +604,8 @@ toSearchHandler(event){
 } //end of component
 
 const mapStateToProps = state => ({
-		loginStatus: state.loginStatus
+		loginStatus: state.loginStatus,
+    currentUser: state.currentUser
 });
 export default connect(mapStateToProps,{actionClickTab})(OfferARide);
 
