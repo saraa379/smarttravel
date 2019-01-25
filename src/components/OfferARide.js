@@ -197,6 +197,8 @@ class OfferARide extends Component {
 										roundSelectedDay: "",
 										roundDateArray: [],
 										roundDatePickerVisible: false,
+                    content: "",
+                    price: ""
 		  };
 			this.searchHandler = this.searchHandler.bind(this);
 			this.citySelect = this.citySelect.bind(this);
@@ -207,12 +209,30 @@ class OfferARide extends Component {
 			this.roundShowDatePicker = this.roundShowDatePicker.bind(this);
 			this.roundDatePickerInputChange = this.roundDatePickerInputChange.bind(this);
 			this.handleCheck = this.handleCheck.bind(this);
+      this.handleChangeTextArea = this.handleChangeTextArea.bind(this);
+      this.priceChange = this.priceChange.bind(this);
+      this.handleSubmitOffer = this.handleSubmitOffer.bind(this);
 	}//end of constructor
 
 
 	componentDidMount(){
 		this.props.actionClickTab("offeraride");
 	}
+
+  //Submits the Offfer to database
+  handleSubmitOffer(event) {
+    event.preventDefault();
+    const {loginStatus} = this.props.loginStatus;
+    console.log("Submit button is pressed. Login status is : " + loginStatus);
+  }
+  //price input
+  priceChange(event) {
+    this.setState({price: event.target.value});
+  }
+  //Content add from textarea
+  handleChangeTextArea(event) {
+    this.setState({content: event.target.value});
+  }
 	//Toggles the Round trip checkbox
 		handleCheck() {
 			var checked = this.state.checked;
@@ -330,7 +350,6 @@ toSearchHandler(event){
 }
 
 	render() {
-		const {loginStatus} = this.props.loginStatus;
 		const { term, cityResult, cityResultVisible, toTerm, toCityResult,
 			toCityResultVisible, selectedDay, datePickerVisible, checked,
 		  roundSelectedDay, roundDatePickerVisible, } = this.state;
@@ -359,7 +378,7 @@ toSearchHandler(event){
 								<div className="From">
 										<div className="selects">
 													<div className="selectDiv">
-															<form className="form offer">
+															<form className="form offer" onSubmit={this.handleSubmitOffer}>
 
 																	<div className="formSection">
 																		<label>From</label>
@@ -408,9 +427,25 @@ toSearchHandler(event){
 																			<label>Return Date</label>
 																			<input type = "text" placeholder="Choose a return date" onClick={this.roundShowDatePicker} onChange={this.roundDatePickerInputChange} value={roundSelectedDay}/>
 																			<div className={(roundDatePickerVisible) ? "datePicker" : "notVisible"}>
-
+                                            <Calendar style={style} width="302px"
+                                                      onDayClick={(e, day, month, year) => this.RoundOnDayClick(e, day, month, year)}
+                                            />
 																      </div>
 																	</div>
+
+                                  <div className="formSection">
+																			<label>Price</label>
+																			<input type = "text" placeholder="Enter a price" onChange={this.priceChange} value={this.state.price}/>
+																	</div>
+
+                                  <div className="formSection">
+																			<label>Description</label>
+                                      <textarea placeholder="Enter description here ..." rows="7" onChange={this.handleChangeTextArea} value={this.state.content}></textarea>
+																	</div>
+
+                                  <div className="formSection">
+                                      <input className="formButton" type="submit" value="Submit"/>
+                                  </div>
 
 															</form>
 													</div>

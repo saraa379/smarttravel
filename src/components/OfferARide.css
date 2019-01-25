@@ -6,7 +6,7 @@
   display: none !important;
 }
 
-/*Login Message page styles*/
+/*Hero section styles*/
 
 .OfferARideHero {
     height: 100%;
@@ -48,10 +48,13 @@
   font-style: italic;
   font-family: 'Calligraffitti';
 }
+
+/*Content section styles*/
 .OfferARideContent {
     color: #575E66;
+    background-color: white;
     width: 80%;
-    border: 2px solid #6B7380;
+    border: 1px solid #E0EEEE;
     border-radius: 3px;
     /*
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
@@ -73,7 +76,7 @@
     margin: 20px;
 }
 .OfferARideContent .line {
-    background-color: grey;
+    background-color: #EDF0F2;
     margin: 10px;
     height: 1px;
 }
@@ -158,9 +161,21 @@
 
 .checkReturn input[type="checkbox"] {
     align-self: center;
+    cursor: pointer;
 }
 .checkReturn label {
     align-self: center;
+}
+
+.formSection textarea {
+    width: 100%;
+    outline: none;
+    padding: 8px;
+    margin-top: 10px;
+    margin-bottom: 2px !important;
+    color: #575E66;
+    border: 1px solid grey;
+    border-radius: 3px;
 }
 
 @media (max-width: 1200px) {

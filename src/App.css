@@ -21,7 +21,7 @@ header, footer {
   flex: 1 0 auto; /* 2 */
   padding: var(--space) var(--space) 0;
   width: 100%;
-  background-color: white;
+  background-color: #EDF0F2;
 }
 .main {
   flex: 1 0 auto; /* 2 */

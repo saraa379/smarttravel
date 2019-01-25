@@ -112,6 +112,8 @@ class Menu extends Component {
 						phone: phone,
 						email: email,
 						password: password,
+						offeredtravels:["empty"],
+						appliedtravels:["empty"],
 						key: ""
 					}//end of obj
 
