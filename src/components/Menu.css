@@ -155,7 +155,13 @@ header a:hover {
 	  -webkit-touch-callout: none;
 	}
 
-
+.loginError, .errorMsg {
+    color: red;
+}
+.errorMsg {
+    margin-top: 7px;
+    font-size: 0.9rem;
+}
 
 
 

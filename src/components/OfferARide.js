@@ -198,7 +198,11 @@ class OfferARide extends Component {
 										roundDateArray: [],
 										roundDatePickerVisible: false,
                     content: "",
-                    price: ""
+                    price: "",
+                    chosenCity: "empty",
+                    toChosenCity: "empty",
+                    chosenCityError: false,
+                    toChosenCityError: false
 		  };
 			this.searchHandler = this.searchHandler.bind(this);
 			this.citySelect = this.citySelect.bind(this);
@@ -223,7 +227,21 @@ class OfferARide extends Component {
   handleSubmitOffer(event) {
     event.preventDefault();
     const {loginStatus} = this.props.loginStatus;
-    console.log("Submit button is pressed. Login status is : " + loginStatus);
+    const { chosenCity, toChosenCity, dateArray, roundSelectedDay,
+            roundDateArray, price, content, cityResultVisible, toChosenCityError } = this.state;
+    if (loginStatus === false) {
+        console.log("The user is not logged in");
+    }
+    if (chosenCity === "empty" || cityResultVisible === true){
+        this.setState({chosenCityError: true});
+    }
+    if (toChosenCity === "empty" || toChosenCityError === true){
+        this.setState({toChosenCityError: true});
+    }
+    if (loginStatus === true && chosenCity !== "empty" && toChosenCity !== "empty" && dateArray !== [] && price !== "" && content !== ""){
+      console.log("Offer form is submitted");
+    }
+
   }
   //price input
   priceChange(event) {
@@ -281,17 +299,23 @@ class OfferARide extends Component {
  			dateArray.push(day);
  			this.setState({ roundDateArray: dateArray });
  	 }
+   //selects city from drop down list
 	citySelect(city) {
 			console.log("Selected city is: " + city.title);
 			this.setState({ cityResult: [] });
 			this.setState({ term: city.title });
 			this.setState({ cityResultVisible: false });
+      this.setState({ chosenCity: city });
+      this.setState({ chosenCityError: false });
 	}
+  //selects city from drop down list
 	toCitySelect(city) {
 			console.log("Selected city is: " + city.title);
 			this.setState({ toCityResult: [] });
 			this.setState({ toTerm: city.title });
 			this.setState({ toCityResultVisible: false });
+      this.setState({ toChosenCity: city });
+      this.setState({ toChosenCityError: false });
 	}
 
 searchHandler(event){
@@ -301,6 +325,7 @@ searchHandler(event){
 	if (event.target.value === "") {
 			this.setState({ cityResult: [] });
 			this.setState({ cityResultVisible: false });
+      this.setState({ chosenCityError: true });
 	} else {
 				var term = event.target.value.toLowerCase();
 				console.log("Lower case term: " + term);
@@ -328,6 +353,7 @@ toSearchHandler(event){
 	if (event.target.value === "") {
 			this.setState({ toCityResult: [] });
 			this.setState({ toCityResultVisible: false });
+      this.setState({ toChosenCityError: true });
 	} else {
 				var term = event.target.value.toLowerCase();
 				console.log("Lower case term: " + term);
@@ -350,6 +376,7 @@ toSearchHandler(event){
 }
 
 	render() {
+    const {loginStatus} = this.props.loginStatus;
 		const { term, cityResult, cityResultVisible, toTerm, toCityResult,
 			toCityResultVisible, selectedDay, datePickerVisible, checked,
 		  roundSelectedDay, roundDatePickerVisible, } = this.state;
@@ -382,6 +409,7 @@ toSearchHandler(event){
 
 																	<div className="formSection">
 																		<label>From</label>
+                                    <p className={(this.state.chosenCityError === true) ? "errorMsg" : "notVisible"}>* Please choose a start city</p>
 																		<input type = "text" placeholder="Enter a city ..." onChange={this.searchHandler} value={term}/>
 																		<div className={(cityResultVisible) ? "cityResultDiv" : "notVisible"}>
 																		{
@@ -396,6 +424,7 @@ toSearchHandler(event){
 
 																	<div className="formSection">
 																		<label>To</label>
+                                    <p className={(this.state.toChosenCityError === true) ? "errorMsg" : "notVisible"}>* Please choose a destination city</p>
 																		<input type = "text" placeholder="Enter a city ..." onChange={this.toSearchHandler} value={toTerm}/>
 																		<div className={(toCityResultVisible) ? "cityResultDiv" : "notVisible"}>
 																		{
@@ -442,6 +471,10 @@ toSearchHandler(event){
 																			<label>Description</label>
                                       <textarea placeholder="Enter description here ..." rows="7" onChange={this.handleChangeTextArea} value={this.state.content}></textarea>
 																	</div>
+
+                                  <div className={(loginStatus === false) ? "formSection" : "notVisible"}>
+          															<p className="loginError">* Please login to submit you add!</p>
+          												</div>
 
                                   <div className="formSection">
                                       <input className="formButton" type="submit" value="Submit"/>
