@@ -9,6 +9,7 @@ import './OfferARide.css';
 import _ from 'lodash';
 import Calendar from './Calendar.js';
 import firebase from '../firebase/firebase.js';
+import {actionUpdateCurrentUser} from '../actions/updateCurrentUserAction.js';
 
 
 const style = {
@@ -265,6 +266,8 @@ class OfferARide extends Component {
         && dateArray.length >= 1 && price !== "" && content !== "" && roundDateError === false){
       console.log("Offer form is submitted");
 
+
+
       const newOffer = {
 						fromCity: chosenCity,
 						toCity: toChosenCity,
@@ -293,9 +296,11 @@ class OfferARide extends Component {
        			firebase.database().ref('travels/' + returnTravelKey + '/key').set(returnTravelKey);
             newOffer.returntravelkey = returnTravelKey;
             //Adding travel into user object in the db
-            //var offeredTravelsReturn = currentUser.offeredtravels;
-            //offeredTravelsReturn.push(travelKey);
-            //firebase.database().ref('users/' + currentUser.key + '/offeredtravels').set(offeredTravelsReturn);
+            var travelsRet = currentUser.offeredtravels;
+            travelsRet.push(returnTravelKey);
+            firebase.database().ref('users/' + currentUser.key + '/offeredtravels').set(travelsRet);
+            //updating currentUser object in redux store
+            currentUser.offeredtravels.push(returnTravelKey);
         }//end of if return
 
         //Adding travel add to database
@@ -303,11 +308,18 @@ class OfferARide extends Component {
         firebase.database().ref('travels/' + travelKey + '/key').set(travelKey);
 
         //Adding travel into user object in the db
+        var travels = currentUser.offeredtravels;
+        travels.push(travelKey);
 
-        //var travels = currentUser.offeredtravels;
-        //console.log("Travels from user submit: " + travels[0])
-        //offeredTravels.push(travelKey);
-        //firebase.database().ref('users/' + currentUser.key + '/offeredtravels').set(offeredTravels);
+        for (var i = 0; i < travels.length; i++) {
+          console.log("Travels from user submit: " + travels[i]);
+        }
+        firebase.database().ref('users/' + currentUser.key + '/offeredtravels').set(travels);
+        //updating currentUser object in redux store
+        currentUser.offeredtravels.push(travelKey);
+
+        //updating current user in the redux
+  			this.props.actionUpdateCurrentUser(currentUser);
 
        //Clears the form
        this.setState({chosenCity: "empty"});
@@ -607,7 +619,7 @@ const mapStateToProps = state => ({
 		loginStatus: state.loginStatus,
     currentUser: state.currentUser
 });
-export default connect(mapStateToProps,{actionClickTab})(OfferARide);
+export default connect(mapStateToProps,{actionClickTab, actionUpdateCurrentUser})(OfferARide);
 
 
 //
