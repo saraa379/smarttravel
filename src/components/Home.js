@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {actionClickTab} from '../actions/menuActions.js';
+import './Home.css';
 
 
 class Home extends Component {
@@ -11,7 +12,11 @@ class Home extends Component {
 
 		return (
 			<div className="innerWrap">
-				 	Home page
+						<div className="HomeHero">
+									 <p>Wanna offer a ride?</p>
+									 <h2>A Good Choice</h2>
+									 <p className="lastP">Make your next journey more enjoyable with others</p>
+						</div>
 			</div>
 		)
 	}

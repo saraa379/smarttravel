@@ -277,7 +277,8 @@ class OfferARide extends Component {
 						returntravelkey:"",
 						ownerKey: currentUser.key,
 						applicants:["empty"],
-						key: ""
+						key: "",
+            passed: false
 				}//end of obj
         //Checks if there is return travel
         if (checked === true && roundDateArray.length > 1) {
@@ -290,7 +291,8 @@ class OfferARide extends Component {
                 returntravelkey:"",
                 ownerKey: currentUser.key,
                 applicants:["empty"],
-                key: ""
+                key: "",
+                passed: false
             }//end of obj
             var returnTravelKey = firebase.database().ref('travels/').push(newReturn).key;
        			firebase.database().ref('travels/' + returnTravelKey + '/key').set(returnTravelKey);
@@ -494,16 +496,6 @@ toSearchHandler(event){
 		const { term, cityResult, cityResultVisible, toTerm, toCityResult,
 			toCityResultVisible, selectedDay, datePickerVisible, checked,
 		  roundSelectedDay, roundDatePickerVisible, } = this.state;
-      /*
-      if(loginStatus === true) {
-        const {currentUser} = this.props.currentUser;
-        console.log("Offered travels in user render: " + currentUser.offeredtravels[0]);
-      }*/
-
-    //console.log("Offered travels in user render: " + currentUser.offeredtravels);
-    //console.log("Price error message: " + this.state.priceError);
-		//console.log("Selected date is: " + dateArray[0] + "//" + dateArray[1] + "//" + dateArray[2]);
-
 		//Generating search results
 		/*
 		const listItems = cityResult.map(city =>

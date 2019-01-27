@@ -1,16 +1,8 @@
-.visible {
-  display: block;
-}
-
 .notVisible {
   display: none !important;
 }
 
 /*Hero section styles*/
-
-.OfferARideHero {
-    height: 100%;
-}
 .OfferARideHero {
     height: 350px;
     width: 100%;
@@ -39,9 +31,11 @@
   border-bottom: 2px solid grey;
   padding-bottom: 10px;
   margin-bottom: 15px;
+  margin-top: 5px;
 }
 .OfferARideHero p {
   font-size: 1.2rem;
+  margin-bottom: 0;
 }
 .OfferARideHero .lastP {
   font-size: 1rem;
