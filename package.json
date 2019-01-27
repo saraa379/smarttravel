@@ -6,6 +6,7 @@
     "firebase": "^5.7.3",
     "moment": "^2.24.0",
     "react": "^16.7.0",
+    "react-animated-slider": "^1.1.4",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
     "react-responsive-modal": "^3.5.1",

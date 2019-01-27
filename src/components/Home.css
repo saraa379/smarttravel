@@ -4,20 +4,14 @@
 
 /*Hero section styles*/
 .HomeHero {
-    height: 500px;
+    height: 400px;
     width: 100%;
-
-    background-image: linear-gradient(
-	      	rgba(10, 69, 220, 0),
-	      	rgba(10, 69, 220, 0)
-	    	),
-    		url(../img/car7.jpg);
-    background-position: center 50%;
-    background-size: cover;
+    background-color: grey;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 .HomeHero h2, .HomeHero p {
     text-align: center;
@@ -41,6 +35,9 @@
   font-family: 'Calligraffitti';
 }
 
+/*Slider styles*/
+
+
 /*Content section styles*/
 .HomeContent {
     color: #575E66;
@@ -48,8 +45,6 @@
     width: 80%;
     border: 1px solid #E0EEEE;
     border-radius: 3px;
-    /*
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
     margin: 10px auto;
     min-height: 200px;
     margin-top: 25px;
