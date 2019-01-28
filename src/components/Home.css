@@ -36,7 +36,12 @@
 }
 
 /*Slider styles*/
-
+.slider {
+    width: 100%;
+}
+.slide {
+  width: 100%;
+}
 
 /*Content section styles*/
 .HomeContent {
@@ -54,8 +59,13 @@
     justify-content: flex-start;
 }
 
-@media (max-width: 1200px) {
-
+@media (min-width: 1200px) {
+  .HomeHero {
+      height: 500px;
+  }
+  .slider {
+    height: 500px !important;
+  }
 }
 @media (max-width: 408px) {
 
