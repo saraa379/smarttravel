@@ -8,21 +8,21 @@ import Car from '../img/car7.jpg';
 //content of the slider
 const content = [
 	{
-		title: 'Vulputate Mollis Ultricies Fermentum Parturient',
+		title: 'Share your travel with others',
 		description:
-		'Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cras justo odio, dapibus ac facilisis.',
+		'Smart Travel connects passengers with drivers. Save your travel cost and environment through ride sharing.',
 		image: require('../img/car18.jpg')
 	},
 	{
 		title: 'Travelling is not as expensive as you think',
 		description:
-		'If you like travelling, lack of money is not an excuse. With ride-sharing, I became able to travel more often and made a lot of friends who love to travel. - Anna, Örebro',
+		'If you like travelling, lack of money is not an excuse. With ride-sharing, I became able to travel more often and made a lot of friends who love to travel. - Irine från Örebro',
 		image: require('../img/car19.jpg')
 	},
 	{
-		title: 'Phasellus volutpat metus',
+		title: 'Shared joy is double joy',
 		description:
-		'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Duis mollis, est non commodo luctus, nisi erat porttitor ligula.',
+		'Glad to found out Smart Travel. Had great adventure with amazing people. Highly reccomend it to other travellers. Jenny och Martin från Småland.',
 		image: require('../img/car4.jpg')
 	}
 ];

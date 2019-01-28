@@ -8,8 +8,8 @@
     width: 100%;
 
     background-image: linear-gradient(
-	      	rgba(10, 69, 220, 0.8),
-	      	rgba(10, 69, 220, 0.8)
+	      	rgba(10, 69, 220, 0.4),
+	      	rgba(10, 69, 220, 0.4)
 	    	),
     		url(../img/car27.jpg);
     background-position: center 50%;

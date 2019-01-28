@@ -6,25 +6,19 @@
 .HomeHero {
     height: 400px;
     width: 100%;
-    background-color: grey;
+    background-color: rgb(10, 69, 220);
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
     position: relative;
 }
-.HomeHero h2, .HomeHero p {
+.HomeHero h2 {
     text-align: center;
     font-size: 2.1rem;
     color: white;
     /*text-shadow: 2px 2px grey;*/
     font-weight: normal;
-}
-
-.HomeHero .lastP {
-  font-size: 1rem;
-  font-style: italic;
-  font-family: 'Calligraffitti';
 }
 
 /*Slider styles*/
@@ -37,18 +31,26 @@
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+  opacity: 0.8;
 }
 .slider .HeroTitle {
     border: none;
+    background-color: black;
+    opacity: 0.5;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .slider .HeroContent {
-    margin-top: 30px;
+    margin-top: 50px;
     color: white;
     width: 80%;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-style: italic;
     font-weight: bold;
-    font-family: 'Calligraffitti';
+    text-shadow: 1px 1px grey;
+}
+.nextButton, .previousButton {
+    visibility: hidden;
 }
 
 /*Content section styles*/
@@ -75,6 +77,8 @@
     height: 500px !important;
   }
 }
-@media (max-width: 408px) {
-
+@media (max-width: 400px) {
+  .slider .HeroContent {
+      margin-top: 30px;
+  }
 }
