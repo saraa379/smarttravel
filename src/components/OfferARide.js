@@ -49,6 +49,7 @@ const cityArray = [{title: "Alingsås", county: "Västra Götaland"},
 {title: "Gothenburg", county: "Västra Götaland"},
 {title: "Gränna", county: "Jönköping"},
 {title: "Gustavsberg", county: "Stockholm"},
+{title: "Göteborg", county: "Västra Götaland"},
 {title: "Gävle", county: "Gävleborg"},
 {title: "Hagfors", county: "Värmland"},
 {title: "Halmstad", county: "Halland"},
@@ -563,7 +564,7 @@ toSearchHandler(event){
 																	<div className="formSection checkReturn">
 																			<label>Round trip</label>
                                       <p className={(this.state.roundDateError === true) ? "errorMsg" : "notVisible"}>* Please choose a return date</p>
-																			<input type="checkbox" onChange={this.handleCheck} defaultChecked={this.state.checked}/>
+																			<input type="checkbox" onChange={this.handleCheck} checked={this.state.checked}/>
 																	</div>
 
 																	<div className={(checked === true) ? "formSection" : "notVisible"}>

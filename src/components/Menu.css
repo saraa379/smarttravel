@@ -22,12 +22,13 @@ header a {
     text-decoration: none;
     font-size: 0.9rem;
     color: #1D7CF2;
+    font-family: 'open sans';
 }
 header a.chosen {
   color: #0D4F8B;
 }
 header a:hover {
-  color: #0147FA;
+  color: #0D4F8B;
 }
 .logo, nav, .headerSecond, .headerFirst {
     display: inline;
@@ -85,6 +86,7 @@ header a:hover {
 		 width: 8em;
      margin-top: 10px;
      border: 2px solid #1D7CF2;
+     font-family: 'GothamLightRegular';
   }
   .loginBottom {
      margin-top: 20px;

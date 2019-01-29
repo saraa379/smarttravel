@@ -4,7 +4,6 @@ import {actionClickTab} from '../actions/menuActions.js';
 import './Home.css';
 import Slider from 'react-animated-slider';
 import 'react-animated-slider/build/horizontal.css';
-import Car from '../img/car7.jpg';
 //content of the slider
 const content = [
 	{
@@ -22,7 +21,7 @@ const content = [
 	{
 		title: 'Shared joy is double joy',
 		description:
-		'Glad to found out Smart Travel. Had great adventure with amazing people. Highly reccomend it to other travellers. Jenny och Martin från Småland.',
+		'Glad that found out Smart Travel. Had great adventure with amazing people. Highly reccomend it to other travellers. Jenny och Martin från Småland.',
 		image: require('../img/car4.jpg')
 	}
 ];
@@ -44,6 +43,12 @@ class Home extends Component {
 														<div className="HeroContent">{article.description}</div>
 										</div>)}
 								</Slider>
+						</div>
+
+						<div className="SearchSection">
+								<h2>Where do you want to travel?</h2>
+								<div className="SearchInputs">
+								</div>
 						</div>
 			</div>
 		)

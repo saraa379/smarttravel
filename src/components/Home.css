@@ -15,10 +15,12 @@
 }
 .HomeHero h2 {
     text-align: center;
-    font-size: 2.1rem;
+    font-size: 1.8rem;
     color: white;
     /*text-shadow: 2px 2px grey;*/
     font-weight: normal;
+    font-family: 'GothamLightRegular';
+    text-transform: uppercase;
 }
 
 /*Slider styles*/
@@ -46,8 +48,8 @@
     width: 80%;
     font-size: 1.3rem;
     font-style: italic;
-    font-weight: bold;
     text-shadow: 1px 1px grey;
+    font-family: 'GothamLightRegular';
 }
 .nextButton, .previousButton {
     visibility: hidden;
@@ -67,6 +69,20 @@
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
+}
+/*Search section styles*/
+.SearchSection {
+    color: #575E66;
+    width: 80%;
+    margin: 30px auto;
+}
+.SearchSection h2 {
+    color: #575E66;
+    font-family: 'GothamLightRegular';
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-size: 1.5rem;
 }
 
 @media (min-width: 1200px) {
