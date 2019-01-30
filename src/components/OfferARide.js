@@ -46,7 +46,6 @@ const cityArray = [{title: "Alingsås", county: "Västra Götaland"},
 {title: "Flen", county: "Södermanland"},
 {title: "Gamla Lödöse", county: "Västra Götaland"},
 {title: "Getakärr", county: "Halland"},
-{title: "Gothenburg", county: "Västra Götaland"},
 {title: "Gränna", county: "Jönköping"},
 {title: "Gustavsberg", county: "Stockholm"},
 {title: "Göteborg", county: "Västra Götaland"},
@@ -417,7 +416,7 @@ class OfferARide extends Component {
  	 }
    //selects city from drop down list
 	citySelect(city) {
-			console.log("Selected city is: " + city.title);
+			//console.log("Selected city is: " + city.title);
 			this.setState({ cityResult: [] });
 			this.setState({ term: city.title });
 			this.setState({ cityResultVisible: false });

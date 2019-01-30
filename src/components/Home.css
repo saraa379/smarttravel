@@ -74,7 +74,7 @@
 .SearchSection {
     color: #575E66;
     width: 80%;
-    margin: 30px auto;
+    margin: 50px auto;
 }
 .SearchSection h2 {
     color: #575E66;
@@ -83,6 +83,43 @@
     text-transform: uppercase;
     letter-spacing: .1em;
     font-size: 1.5rem;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+.SearchInputs {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+.findBtn {
+    display: inline-flex;
+    height: 42px;
+    min-width: 100px;
+    background-color: #1D7CF2;
+    color: white;
+    border-radius: 5px;
+    align-self: center;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+.findBtn p {
+    display: inline;
+    font-weight: bold !important;
+    font-size: 1.2rem;
+}
+.findBtn .fa-search {
+    color: white;
+    margin-right: 10px;
+}
+
+/*TravelsSection styles*/
+.TravelsSection {
+    width: 80%;
+    margin: 50px auto;
 }
 
 @media (min-width: 1200px) {
@@ -96,5 +133,15 @@
 @media (max-width: 400px) {
   .slider .HeroContent {
       margin-top: 30px;
+  }
+}
+@media (max-width: 680px) {
+  .SearchInputs {
+      flex-flow: column nowrap;
+  }
+}
+@media (max-width: 350px) {
+  .SearchSection h2 {
+      font-size: 1.2rem;
   }
 }

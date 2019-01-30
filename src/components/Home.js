@@ -4,6 +4,7 @@ import {actionClickTab} from '../actions/menuActions.js';
 import './Home.css';
 import Slider from 'react-animated-slider';
 import 'react-animated-slider/build/horizontal.css';
+import InputSearch from './InputSearch.js';
 //content of the slider
 const content = [
 	{
@@ -28,10 +29,32 @@ const content = [
 
 
 class Home extends Component {
+	constructor(props) {
+			super(props);
+			this.state = {
+								    departureCity: "",
+										destinationCity: ""
+		  };
+			this.getDepartureCity = this.getDepartureCity.bind(this);
+			this.getDestinationCity = this.getDestinationCity.bind(this);
+	}//end of constructor
 	componentDidMount(){
 		this.props.actionClickTab("home");
 	}
+
+	//Recieves selected city object from InputSearch field
+	getDepartureCity(city) {
+ 		 this.setState({ departureCity: city });
+		 //console.log("Departure city is: " + city.title);
+  }
+	//Recieves selected city object from InputSearch field
+	getDestinationCity(city) {
+ 		 this.setState({ destinationCity: city });
+		 //console.log("Departure city is: " + city.title);
+  }
+
 	render() {
+
 
 		return (
 			<div className="innerWrap">
@@ -48,7 +71,20 @@ class Home extends Component {
 						<div className="SearchSection">
 								<h2>Where do you want to travel?</h2>
 								<div className="SearchInputs">
+											<InputSearch pText={"From"}
+											             callbackGetDepartCity={this.getDepartureCity}>
+										  </InputSearch>
+											<InputSearch pText={"To"}
+											             callbackGetDepartCity={this.getDestinationCity}>
+										  </InputSearch>
+											<div className="findBtn">
+														<i class="fas fa-search"></i>
+														<p>Find</p>
+											</div>
 								</div>
+						</div>
+
+						<div className="TravelsSection">
 						</div>
 			</div>
 		)
