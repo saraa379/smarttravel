@@ -171,6 +171,29 @@
     justify-content: flex-start;
 }
 
+/*Page numbers styles*/
+.PageNrWrap {
+    display: flex;
+    justify-content: center;
+    flex-flow: row nowrap;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.PageNr {
+  display: inline;
+  border: 2px solid #DCDCDC;
+  height: 35px;
+  width: 35px;
+  margin-left: 5px;
+  margin-right: 5px;
+  color: #575E66;
+  font-family: 'GothamLightRegular';
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /*Media queries*/
 @media (min-width: 1200px) {
   .HomeHero {

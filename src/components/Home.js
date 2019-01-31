@@ -5,6 +5,8 @@ import './Home.css';
 import Slider from 'react-animated-slider';
 import 'react-animated-slider/build/horizontal.css';
 import InputSearch from './InputSearch.js';
+import TravelCard from './TravelCard.js';
+import firebase from '../firebase/firebase.js';
 //content of the slider
 const content = [
 	{
@@ -34,13 +36,49 @@ class Home extends Component {
 			this.state = {
 								    departureCity: "",
 										destinationCity: "",
-										resultTitle: "Available travels"
+										resultTitle: "Available travels",
+										users: [],
+										travels: [],
+										currentPage: 1,
+										itemsPerPage: 5,
+										todos: ['a','b','c','d','e','f','g','h','i','j','k']
 		  };
 			this.getDepartureCity = this.getDepartureCity.bind(this);
 			this.getDestinationCity = this.getDestinationCity.bind(this);
+			this.pageNrClick = this.pageNrClick.bind(this);
+			this.fbCallback = this.fbCallback.bind(this);
 	}//end of constructor
+
+	componentWillMount(){
+		firebase.database().ref('travels/').on('value', this.fbCallback);
+	}
+	fbCallback = function(snapshot) {
+		var that = this;
+		var dataArray = [];
+		snapshot.forEach( child => {
+
+			var travelTemp = child.val();
+			dataArray.push(travelTemp);
+			//console.log("Pushing travel object into array: " + travelTemp.key);
+		})//end of foreach
+		that.setState({
+				travels: dataArray
+		});
+	}
+
 	componentDidMount(){
 		this.props.actionClickTab("home");
+
+
+		//Users
+		/*const {users} = this.props.users;
+		var userArray = [];
+		for(let child in users){
+					let r = users[child];
+					console.log("user key is: " + r.key);
+					userArray.push(r);
+		}//end of for
+		this.setState({ users: userArray });*/
 
 	}
 
@@ -54,18 +92,57 @@ class Home extends Component {
  		 this.setState({ destinationCity: city });
 		 //console.log("Departure city is: " + city.title);
   }
+	//Click event on page number Link
+	pageNrClick(event) {
+		this.setState({
+				 currentPage: Number(event.target.id)
+			 });
+  }
 
 	render() {
-		//Users
-		const {userss} = this.props.users;
-		var userArray = [];
-		
+		const { users, currentPage, itemsPerPage, todos, travels } = this.state;
+
+		console.log("Home page render: " + travels.length);
+		for (var i = 0; i < travels.length; i++) {
+			 console.log("Travels in render: " + travels[i].content);
+		}
+
 		//Travels
-		const {travels} = this.props.travels;
+		/*const {travels} = this.props.travels;
+		var travelArray = []
 		for(let child in travels){
 					let r = travels[child];
-					console.log("travel key is: " + r.key);
-		}//end of for
+					//console.log("travel key is: " + r.key);
+					travelArray.push(r);
+		}*///end of for
+		//this.setState({ travelsIn: travelArray });
+
+		//Pagination
+    const lastPageNr = currentPage * itemsPerPage;
+    const firstPageNr = lastPageNr - itemsPerPage;
+    const currentItems = todos.slice(firstPageNr, lastPageNr);
+
+		const renderTravels = currentItems.map((travel, index) => {
+          return <li key={index}>{travel.content}</li>;
+        });
+		// Logic for displaying page numbers
+	  const pageNumbers = [];
+	  for (let i = 1; i <= Math.ceil(todos.length / itemsPerPage); i++) {
+				 pageNumbers.push(i);
+	  }
+	  const renderPageNumbers = pageNumbers.map(number => {
+	      return (
+				            <div
+											className="PageNr"
+				              key={number}
+				              id={number}
+				              onClick={this.pageNrClick}
+				            >
+				              {number}
+				            </div>
+				          );
+		});
+
 
 		return (
 			<div className="innerWrap white">
@@ -103,7 +180,11 @@ class Home extends Component {
 										</div>
 
 										<div className="travelResultContent">
+												{renderTravels}
 										</div>
+										<div className="PageNrWrap">
+				              	{renderPageNumbers}
+				            </div>
 								</div>
 						</div>
 			</div>
@@ -112,7 +193,6 @@ class Home extends Component {
 
 } //end of component
 const mapStateToProps = state => ({
-		travels: state.travels,
 		users: state.users
 });
 
