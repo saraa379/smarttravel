@@ -1,6 +1,9 @@
 .notVisible {
   display: none !important;
 }
+.white {
+  background-color: white;
+}
 
 /*Hero section styles*/
 .HomeHero {
@@ -118,10 +121,57 @@
 
 /*TravelsSection styles*/
 .TravelsSection {
-    width: 80%;
-    margin: 50px auto;
+    width: 100%;
+    margin: 20px 0 20px 0 20px;
+    background-color: #EDF0F2;
 }
 
+.TravelsSection .travelsInner {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-bottom: 30px
+}
+
+.travelResultTitle {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+}
+
+.travelResultTitle h2 {
+    color: #575E66;
+    font-family: 'GothamLightRegular';
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-size: 1.5rem;
+    display: inline;
+    align-self: center;
+    margin-bottom: 0;
+}
+
+.travelResultTitle p {
+  color: #575E66;
+  font-family: 'GothamLightRegular';
+  display: inline;
+  font-size: 1.2rem;
+  align-self: center;
+}
+
+.travelResultContent {
+    min-height: 300px;
+    border: 3px solid white;
+    margin-top: 30px;
+    background-color: white;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+}
+
+/*Media queries*/
 @media (min-width: 1200px) {
   .HomeHero {
       height: 500px;
@@ -130,18 +180,37 @@
     height: 500px !important;
   }
 }
-@media (max-width: 400px) {
-  .slider .HeroContent {
-      margin-top: 30px;
-  }
-}
 @media (max-width: 680px) {
   .SearchInputs {
       flex-flow: column nowrap;
   }
 }
+
+@media (max-width: 500px) {
+  .travelResultTitle {
+      flex-direction: column !important;
+  }
+  .SearchSection h2 {
+      text-align: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .slider .HeroContent {
+      margin-top: 30px;
+  }
+  .travelResultTitle {
+      flex-flow: column nowrap !important;
+  }
+}
+
 @media (max-width: 350px) {
   .SearchSection h2 {
+      font-size: 1.2rem;
+  }
+}
+@media (max-width: 340px) {
+  .travelResultTitle h2{
       font-size: 1.2rem;
   }
 }

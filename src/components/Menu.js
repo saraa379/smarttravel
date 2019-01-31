@@ -10,6 +10,7 @@ import {actionClickTab} from '../actions/menuActions.js';
 import {actionChangeLoginStatus} from '../actions/loginStatusChangeAction.js';
 import {actionUpdateCurrentUser} from '../actions/updateCurrentUserAction.js';
 import {actionFetchUsers} from '../actions/fetchUsersAction.js';
+import {actionFetchTravels} from '../actions/fetchTravelsAction.js';
 import Modal from 'react-responsive-modal';
 import firebase from '../firebase/firebase.js';
 
@@ -42,6 +43,7 @@ class Menu extends Component {
 
 	componentDidMount() {
 			this.props.actionFetchUsers();
+			this.props.actionFetchTravels();
 	}
 //User logs out
 	logOut(event) {
@@ -114,8 +116,12 @@ class Menu extends Component {
 						password: password,
 						offeredtravels:["empty"],
 						appliedtravels:["empty"],
+						passedtravels: ["empty"],
 						inbox:["empty"],
 						outbox:["empty"],
+						rates:["empty"],
+						age: 0,
+						gender: "",
 						key: ""
 					}//end of obj
 
@@ -292,4 +298,4 @@ const mapStateToProps = state => ({
 	currentUser: state.currentUser,
 	users: state.users
 });
-export default connect(mapStateToProps,{actionClickTab, actionChangeLoginStatus, actionUpdateCurrentUser, actionFetchUsers})(Menu);
+export default connect(mapStateToProps,{actionClickTab, actionChangeLoginStatus, actionUpdateCurrentUser, actionFetchUsers, actionFetchTravels})(Menu);

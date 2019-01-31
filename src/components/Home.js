@@ -33,13 +33,15 @@ class Home extends Component {
 			super(props);
 			this.state = {
 								    departureCity: "",
-										destinationCity: ""
+										destinationCity: "",
+										resultTitle: "Available travels"
 		  };
 			this.getDepartureCity = this.getDepartureCity.bind(this);
 			this.getDestinationCity = this.getDestinationCity.bind(this);
 	}//end of constructor
 	componentDidMount(){
 		this.props.actionClickTab("home");
+
 	}
 
 	//Recieves selected city object from InputSearch field
@@ -54,10 +56,19 @@ class Home extends Component {
   }
 
 	render() {
-
+		//Users
+		const {userss} = this.props.users;
+		var userArray = [];
+		
+		//Travels
+		const {travels} = this.props.travels;
+		for(let child in travels){
+					let r = travels[child];
+					console.log("travel key is: " + r.key);
+		}//end of for
 
 		return (
-			<div className="innerWrap">
+			<div className="innerWrap white">
 						<div className="HomeHero">
 								<Slider autoplay={6000}>
 								  	{content.map((article, index) => <div key={index}
@@ -78,13 +89,22 @@ class Home extends Component {
 											             callbackGetDepartCity={this.getDestinationCity}>
 										  </InputSearch>
 											<div className="findBtn">
-														<i class="fas fa-search"></i>
+														<i className="fas fa-search"></i>
 														<p>Find</p>
 											</div>
 								</div>
 						</div>
 
 						<div className="TravelsSection">
+								<div className="travelsInner">
+										<div className="travelResultTitle">
+												<h2>{this.state.resultTitle}</h2>
+												<p>Total result: 99</p>
+										</div>
+
+										<div className="travelResultContent">
+										</div>
+								</div>
 						</div>
 			</div>
 		)
@@ -92,6 +112,8 @@ class Home extends Component {
 
 } //end of component
 const mapStateToProps = state => ({
+		travels: state.travels,
+		users: state.users
 });
 
 export default connect(mapStateToProps,{actionClickTab})(Home);
