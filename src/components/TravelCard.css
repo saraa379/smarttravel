@@ -1,1 +1,17 @@
-
+.TravelWrap {
+    background-color: inherit;
+    padding: 10px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    color: #575E66;
+    font-family: 'GothamLightRegular';
+    border-bottom: 2px solid #DCDCDC;
+}
+.TravelInfo {
+   display: inline;
+}
+.UserInfo {
+    display: inline-block;
+    width: 200px;
+}

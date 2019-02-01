@@ -5,12 +5,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {updateDepartureCityErrorMsgAction} from '../actions/updateDepartureCityErrorMsgAction.js';
 import './InputSearch.css';
-
+/*
 const style = {
   position: "relative",
   margin: "0 auto"
 }
-
+*/
 const cityArray = [{title: "Alingsås", county: "Västra Götaland"},
 {title: "Arboga", county: "Västmanland"},
 {title: "Arvika", county: "Värmland"},
@@ -209,7 +209,7 @@ class InputSearch extends Component {
  			this.setState({ cityResultVisible: false });
  	} else {
  				var term = event.target.value.toLowerCase();
- 				console.log("Lower case term: " + term);
+ 				//console.log("Lower case term: " + term);
 
  			  for (var i = 0; i < cityArray.length; i++) {
  					var city = cityArray[i].title.toLowerCase();
@@ -230,14 +230,14 @@ class InputSearch extends Component {
 
 	render() {
 		const { term, cityResult, cityResultVisible } = this.state;
-		const {departureCityErrorMsg} = this.props.departureCityErrorMsg;
+		//const {departureCityErrorMsg} = this.props.departureCityErrorMsg;
 		const pText = this.props.pText;
-		console.log("Place holder text : " + pText);
+		//console.log("Place holder text : " + pText);
 
 		return (
 			<div className="InputSearchWrap">
 					<div className="InputDiv">
-							<img src={require('../img/location.jpg')}/>
+							<img src={require('../img/location.jpg')} alt="City"/>
 							<input type = "text" placeholder={pText} onChange={this.searchHandler} value={term}/>
 					</div>
 					<div className={(cityResultVisible) ? "cityResultDiv" : "notVisible"}>

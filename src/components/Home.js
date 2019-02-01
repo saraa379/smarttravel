@@ -37,11 +37,9 @@ class Home extends Component {
 								    departureCity: "",
 										destinationCity: "",
 										resultTitle: "Available travels",
-										users: [],
 										travels: [],
 										currentPage: 1,
-										itemsPerPage: 5,
-										todos: ['a','b','c','d','e','f','g','h','i','j','k']
+										itemsPerPage: 5
 		  };
 			this.getDepartureCity = this.getDepartureCity.bind(this);
 			this.getDestinationCity = this.getDestinationCity.bind(this);
@@ -68,18 +66,6 @@ class Home extends Component {
 
 	componentDidMount(){
 		this.props.actionClickTab("home");
-
-
-		//Users
-		/*const {users} = this.props.users;
-		var userArray = [];
-		for(let child in users){
-					let r = users[child];
-					console.log("user key is: " + r.key);
-					userArray.push(r);
-		}//end of for
-		this.setState({ users: userArray });*/
-
 	}
 
 	//Recieves selected city object from InputSearch field
@@ -100,37 +86,42 @@ class Home extends Component {
   }
 
 	render() {
-		const { users, currentPage, itemsPerPage, todos, travels } = this.state;
-
+		const { currentPage, itemsPerPage, travels } = this.state;
+		/*
 		console.log("Home page render: " + travels.length);
 		for (var i = 0; i < travels.length; i++) {
 			 console.log("Travels in render: " + travels[i].content);
-		}
+		}*/
 
-		//Travels
-		/*const {travels} = this.props.travels;
-		var travelArray = []
-		for(let child in travels){
-					let r = travels[child];
-					//console.log("travel key is: " + r.key);
-					travelArray.push(r);
-		}*///end of for
-		//this.setState({ travelsIn: travelArray });
 
 		//Pagination
     const lastPageNr = currentPage * itemsPerPage;
     const firstPageNr = lastPageNr - itemsPerPage;
-    const currentItems = todos.slice(firstPageNr, lastPageNr);
+    const currentItems = travels.slice(firstPageNr, lastPageNr);
 
 		const renderTravels = currentItems.map((travel, index) => {
-          return <li key={index}>{travel.content}</li>;
+          return <TravelCard key={index}
+										         travel={travel}
+					       ></TravelCard>;
         });
 		// Logic for displaying page numbers
 	  const pageNumbers = [];
-	  for (let i = 1; i <= Math.ceil(todos.length / itemsPerPage); i++) {
+	  for (let i = 1; i <= Math.ceil(travels.length / itemsPerPage); i++) {
 				 pageNumbers.push(i);
 	  }
 	  const renderPageNumbers = pageNumbers.map(number => {
+				if(currentPage === number){
+					return (
+											<div
+												className="PageNr ChosenNr"
+												key={number}
+												id={number}
+												onClick={this.pageNrClick}
+											>
+												{number}
+											</div>
+										);
+				} else {
 	      return (
 				            <div
 											className="PageNr"
@@ -141,6 +132,7 @@ class Home extends Component {
 				              {number}
 				            </div>
 				          );
+				}
 		});
 
 

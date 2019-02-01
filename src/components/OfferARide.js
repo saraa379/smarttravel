@@ -6,7 +6,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {actionClickTab} from '../actions/menuActions.js';
 import './OfferARide.css';
-import _ from 'lodash';
 import Calendar from './Calendar.js';
 import firebase from '../firebase/firebase.js';
 import {actionUpdateCurrentUser} from '../actions/updateCurrentUserAction.js';
@@ -359,7 +358,7 @@ class OfferARide extends Component {
 		handleCheck() {
 			var checked = this.state.checked;
 			this.setState({checked: !checked});
-      if (checked = true){
+      if (checked === true){
           this.setState({roundDateError: false});
       }
 

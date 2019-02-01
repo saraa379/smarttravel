@@ -26,8 +26,7 @@ class Menu extends Component {
 										phone: '',
 										email: '',
    									password: '',
-   									error: null,
-										errorLogin: null
+   									error: null
 									 };
 		  this.handleChangeFirstname = this.handleChangeFirstname.bind(this);
 			this.handleChangeLastname = this.handleChangeLastname.bind(this);
@@ -58,9 +57,9 @@ class Menu extends Component {
 
 		//Signing out current user
 		firebase.auth().signOut().then(function() {
-			  console.log("Sign out successful");
+			  //console.log("Sign out successful");
 			}).catch(function(error) {
-			  console.log("Sign out unsuccessful: " + error.message);
+			  //console.log("Sign out unsuccessful: " + error.message);
 			});
 	}
 
@@ -138,18 +137,18 @@ class Menu extends Component {
 
 	handleSubmitLogin(event) {
     event.preventDefault();
-		const { email, password, errorLogin} = this.state;
+		const { email, password} = this.state;
 		//console.log("Login button is clicked");
 		firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
 		  // Handle Errors here.
-		  var errorCode = error.code;
-		  var errorMessage = error.message;
-			console.log("Login attemp uncessful: " + errorMessage);
+		  //var errorCode = error.code;
+		  //var errorMessage = error.message;
+			//console.log("Login attemp uncessful: " + errorMessage);
 		});
 
 		var user = firebase.auth().currentUser;
 		 if (user) {
-			 console.log("User is signed in");
+			 //console.log("User is signed in");
 			 this.props.actionChangeLoginStatus(true); //login status is now logged in
 			 this.callLaterLogin(email);
 		 } else {
@@ -162,7 +161,7 @@ class Menu extends Component {
 			for(let child in users){
 						let r = users[child];
 							//console.log("user email: " + r.email);
-						if(r.email == email){
+						if(r.email === email){
 							//updating current user in the redux
 							this.props.actionUpdateCurrentUser(r);
 						} //end of if else
@@ -200,17 +199,16 @@ class Menu extends Component {
 		const {currentTab} = this.props.currentTab;
 		const { modalOpen, error } = this.state;
 		const {loginStatus} = this.props.loginStatus;
-		const {currentUser} = this.props.currentUser;
 
 
-		console.log("Login status is: " + loginStatus);
+		//console.log("Login status is: " + loginStatus);
 		//current user obj from redux store
-		console.log("firstname in render: " + currentUser.firstname);
-		console.log("lastname in render: " + currentUser.lastname);
-		console.log("phone in render: " + currentUser.phone);
-		console.log("email in render: " + currentUser.email);
-		console.log("passwordin render: " + currentUser.password);
-		console.log("key in render: " + currentUser.key);
+		//console.log("firstname in render: " + currentUser.firstname);
+		//console.log("lastname in render: " + currentUser.lastname);
+		//console.log("phone in render: " + currentUser.phone);
+		//console.log("email in render: " + currentUser.email);
+		//console.log("passwordin render: " + currentUser.password);
+		//console.log("key in render: " + currentUser.key);
 		/*
 		for (var key in currentUser) {
 			    if (currentUser.hasOwnProperty(key)) {
@@ -295,7 +293,6 @@ class Menu extends Component {
 const mapStateToProps = state => ({
   currentTab: state.currentTab,
 	loginStatus: state.loginStatus,
-	currentUser: state.currentUser,
 	users: state.users
 });
 export default connect(mapStateToProps,{actionClickTab, actionChangeLoginStatus, actionUpdateCurrentUser, actionFetchUsers, actionFetchTravels})(Menu);
