@@ -84,6 +84,9 @@ class Home extends Component {
 				 currentPage: Number(event.target.id)
 			 });
   }
+	componentWillUnmount() {
+		firebase.database().ref('travels/').off('value', this.fbCallback);
+	}
 
 	render() {
 		const { currentPage, itemsPerPage, travels } = this.state;

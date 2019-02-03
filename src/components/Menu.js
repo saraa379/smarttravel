@@ -38,11 +38,84 @@ class Menu extends Component {
 			this.callLater = this.callLater.bind(this);
 			this.callLaterLogin = this.callLaterLogin.bind(this);
 			this.logOut = this.logOut.bind(this);
+			this.checkTravelDate = this.checkTravelDate.bind(this);
+			this.fbCallback = this.fbCallback.bind(this);
 	}//end of constructor
 
 	componentDidMount() {
 			this.props.actionFetchUsers();
 			this.props.actionFetchTravels();
+			this.checkTravelDate();
+	}
+//Checks if travel dates are passed. If it is passed, remove and add them to new list
+	checkTravelDate(){
+			firebase.database().ref('travels/').once('value', this.fbCallback);
+	}
+	fbCallback = function(snapshot) {
+		var that = this;
+		var passedTravels = [];
+		snapshot.forEach( child => {
+
+			var travelTemp = child.val();
+			//checks if travel date is passed
+			var month;
+			//Convert month string to number string
+			switch (travelTemp.dateArray[1]) {
+				  case "January":
+				    month = "01";
+				    break;
+				  case "February":
+				    month = "02";
+				    break;
+				  case "March":
+				     month = "03";
+				    break;
+				  case "April":
+				    month = "04";
+				    break;
+				  case "May":
+				    month = "05";
+				    break;
+				  case "June":
+				    month = "06";
+				    break;
+				  case "July":
+				    month = "07";
+						break;
+					case "August":
+					  month = "08";
+						break;
+				  case "September":
+						month = "09";
+						break;
+					case "October":
+						month = "10";
+						break;
+				  case "November":
+						month = "11";
+						break;
+					case "December":
+						month = "12";
+						break;
+			}
+			var dateStr = travelTemp.dateArray[0] + "-" + month + "-" + travelTemp.dateArray[2];
+			var date = new Date(); //gets current date
+			var travelDate = new Date(dateStr);
+			if(date > travelDate){
+			    console.log(" The travel date is passed: " + travelTemp.key);
+					passedTravels.push(travelTemp);
+			}
+			//console.log("Pushing travel object into array: " + travelTemp.key);
+		})//end of foreach
+		//Removes passed travels from travels list in the db
+		for (var i = 0; i < passedTravels.length; i++) {
+			//adds passed travels into the passedtravels branch
+			firebase.database().ref('passedtravels/' + passedTravels[i].key).set(passedTravels[i]);
+			//removes passed travels from travels branch
+			firebase.database().ref('travels/' + passedTravels[i].key).remove();
+			console.log("Passed travel keys: " + passedTravels[i].key);
+		}
+		//Adds past travels into passedtravels list
 	}
 //User logs out
 	logOut(event) {
