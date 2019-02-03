@@ -1,16 +1,48 @@
 .TravelWrap {
     background-color: inherit;
-    padding: 10px;
+    padding: 20px 0 20px 0;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     color: #575E66;
     font-family: 'GothamLightRegular';
     border-bottom: 2px solid #DCDCDC;
+    width: 90%;
+    margin: 0 auto;
 }
 .TravelInfo {
    display: inline;
 }
+.TravelTitle {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+.TravelTitle h3{
+    display: inline;
+    margin: 0 10px 0 0;
+}
+.TravelTitle .fa-caret-right {
+    color: #575E66;
+    font-size: 1.4rem;
+    margin-right: 10px;
+}
+.TravelTitle .fa-car {
+    color: #1D7CF2;
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+.TravelTitle img {
+    margin-right: 10px;
+    width: 25px;
+    height: auto;
+}
+.TravelInfo h4 {
+  font-size: 1rem;
+  margin-top: 0;
+}
+/*User styles*/
 .UserInfo {
     display: inline-block;
     width: 200px;

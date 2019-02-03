@@ -52,7 +52,7 @@ class Menu extends Component {
 			firebase.database().ref('travels/').once('value', this.fbCallback);
 	}
 	fbCallback = function(snapshot) {
-		var that = this;
+		//var that = this;
 		var passedTravels = [];
 		snapshot.forEach( child => {
 
@@ -97,6 +97,8 @@ class Menu extends Component {
 					case "December":
 						month = "12";
 						break;
+						default:
+			        console.log("No month matched");
 			}
 			var dateStr = travelTemp.dateArray[0] + "-" + month + "-" + travelTemp.dateArray[2];
 			var date = new Date(); //gets current date
@@ -194,7 +196,8 @@ class Menu extends Component {
 						rates:["empty"],
 						age: 0,
 						gender: "",
-						key: ""
+						key: "",
+						photourl: ""
 					}//end of obj
 
 			var userKey = firebase.database().ref('users/').push(newUser).key;

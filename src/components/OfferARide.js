@@ -494,7 +494,7 @@ toSearchHandler(event){
 
 		const { term, cityResult, cityResultVisible, toTerm, toCityResult,
 			toCityResultVisible, selectedDay, datePickerVisible, checked,
-		  roundSelectedDay, roundDatePickerVisible, } = this.state;
+		  roundSelectedDay, roundDatePickerVisible } = this.state;
 		//Generating search results
 		/*
 		const listItems = cityResult.map(city =>

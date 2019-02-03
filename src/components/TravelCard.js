@@ -11,7 +11,8 @@ class TravelCard extends Component {
 	constructor(props) {
 			super(props);
 			this.state = {
-										users: []
+										users: [],
+										user: ""
 			};
 			this.fbCallback = this.fbCallback.bind(this);
 	}//end of constructor
@@ -21,21 +22,28 @@ class TravelCard extends Component {
 	}
 	fbCallback = function(snapshot) {
 		var that = this;
-		var dataArray = [];
+		var travel = this.props.travel;
+		//console.log("user key in travel object: " + travel.ownerKey);
+		//var dataArray = [];
 		snapshot.forEach( child => {
 
 			var userTemp = child.val();
-			dataArray.push(userTemp);
+			if (userTemp.key === travel.ownerKey) {
+					that.setState({user: userTemp});
+			}
+			//dataArray.push(userTemp);
 			//console.log("Pushing travel object into array: " + travelTemp.key);
 		})//end of foreach
+		/*
 		that.setState({
 				users: dataArray
-		});
+		});*/
 	}
 
 	render() {
 		const travel = this.props.travel;
-		//console.log("Travel in card: " + travel.content);
+		const { user } = this.state;
+		//console.log("User in travel card: " + user.key);
 		//Capitalize first letter
 		var fromCity = travel.fromCity.title.charAt(0).toUpperCase() + travel.fromCity.title.slice(1);
 		var toCity = travel.toCity.title.charAt(0).toUpperCase() + travel.toCity.title.slice(1);
@@ -79,6 +87,8 @@ class TravelCard extends Component {
 				case "December":
 					month = "12";
 					break;
+				default:
+	        console.log("No month matched");
 		}
 		var dateStr = travel.dateArray[0] + "-" + month + "-" + travel.dateArray[2];
 		var dayOfWeek = new Date(dateStr).getDay();
@@ -105,19 +115,28 @@ class TravelCard extends Component {
 			    break;
 			  case 7:
 			    dayOfWeekStr = "Sunday";
+				  break;
+					default:
+		        console.log("No weekend is matched");
 				}
 
 		var date = dayOfWeekStr + ", " + travel.dateArray[1] + " " + travel.dateArray[2] + ", " + travel.dateArray[0];
+		/*<img src={require('../img/car1.png')} alt="Travel" />*/
 
 		return (
 			<div className="TravelWrap">
 					<div className="TravelInfo">
-							<h3>{title}</h3>
+							<div className="TravelTitle">
+									<i class="fa fa-car"></i>
+									<h3>{fromCity}</h3>
+									<i class="fas fa-caret-right"></i>
+									<h3>{toCity}</h3>
+							</div>
 							<h4><span>Date : </span><span>{date}</span></h4>
 							<p>{travel.content}</p>
 					</div>
 					<div className="UserInfo">
-							User info
+							{user.firstname}
 					</div>
 
 			</div>

@@ -137,6 +137,7 @@ class Home extends Component {
 				          );
 				}
 		});
+		const nrOfTravels = "Total result: " + travels.length;
 
 
 		return (
@@ -171,7 +172,7 @@ class Home extends Component {
 								<div className="travelsInner">
 										<div className="travelResultTitle">
 												<h2>{this.state.resultTitle}</h2>
-												<p>Total result: 99</p>
+												<p>{nrOfTravels}</p>
 										</div>
 
 										<div className="travelResultContent">
