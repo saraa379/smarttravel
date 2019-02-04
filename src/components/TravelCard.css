@@ -61,18 +61,11 @@
 }
 /*Rate styles*/
 .Rate {
-  font-family: 'Ionicons';
-  font-size: 48px;
-  display: inline-flex;
-  cursor: pointer;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    padding-top: 15px;
 }
-
-.Rate > .star::after {
-    content: '\f3ae';
-    color: #777;
-}
-
-.Rate > .star.full::after {
-    content: '\f2fc';
-    color: #fd0;
+.Rate i {
+    font-size: 1.8rem;
 }

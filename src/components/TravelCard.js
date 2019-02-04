@@ -6,14 +6,17 @@ import {connect} from 'react-redux';
 import {actionClickTab} from '../actions/menuActions.js';
 import './TravelCard.css';
 import firebase from '../firebase/firebase.js';
+import StarRating from 'react-star-rating-component';
 
 class TravelCard extends Component {
 	constructor(props) {
 			super(props);
 			this.state = {
-										user: ""
+										user: "",
+										rating: 0
 			};
 			this.fbCallback = this.fbCallback.bind(this);
+			this.onStarClick = this.onStarClick.bind(this);
 	}//end of constructor
 
 	componentWillMount(){
@@ -41,17 +44,21 @@ class TravelCard extends Component {
 	componentWillUnmount() {
 		firebase.database().ref('users/').off('value', this.fbCallback);
 	}
-
+	onStarClick(nextValue, prevValue, name) {
+		const travel = this.props.travel;
+    this.setState({rating: nextValue});
+		console.log("Next value for rating is: " + nextValue);
+  }
 	render() {
 		const travel = this.props.travel;
-		const { user } = this.state;
+		const { user, rating } = this.state;
 		//console.log("User in travel card: " + user.key);
 		//Capitalize first letter
 		var fromCity = travel.fromCity.title.charAt(0).toUpperCase() + travel.fromCity.title.slice(1);
 		var toCity = travel.toCity.title.charAt(0).toUpperCase() + travel.toCity.title.slice(1);
-		var title = fromCity + " to " + toCity;
+
+//Convert month string to number string
 		var month;
-		//Convert month string to number string
 		switch (travel.dateArray[1]) {
 			  case "January":
 			    month = "01";
@@ -171,7 +178,13 @@ class TravelCard extends Component {
 									</div>
 							</div>
 							<div className="Rate">
-									<i className="fal fa-star"></i>
+										<StarRating
+											name="rate1"
+											starCount={5}
+											emptyStarColor={"#DCDCDC"}
+											value={rating}
+											onStarClick={this.onStarClick.bind(this)}
+										/>
 							</div>
 					</div>
 

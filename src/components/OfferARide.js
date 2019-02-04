@@ -442,7 +442,7 @@ searchHandler(event){
       this.setState({ chosenCityError: true });
 	} else {
 				var term = event.target.value.toLowerCase();
-				console.log("Lower case term: " + term);
+				//console.log("Lower case term: " + term);
 
 			  for (var i = 0; i < cityArray.length; i++) {
 					var city = cityArray[i].title.toLowerCase();
@@ -470,7 +470,7 @@ toSearchHandler(event){
       this.setState({ toChosenCityError: true });
 	} else {
 				var term = event.target.value.toLowerCase();
-				console.log("Lower case term: " + term);
+				//console.log("Lower case term: " + term);
 
 			  for (var i = 0; i < cityArray.length; i++) {
 					var city = cityArray[i].title.toLowerCase();
