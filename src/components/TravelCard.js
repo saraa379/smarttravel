@@ -11,7 +11,6 @@ class TravelCard extends Component {
 	constructor(props) {
 			super(props);
 			this.state = {
-										users: [],
 										user: ""
 			};
 			this.fbCallback = this.fbCallback.bind(this);
@@ -38,6 +37,9 @@ class TravelCard extends Component {
 		that.setState({
 				users: dataArray
 		});*/
+	}
+	componentWillUnmount() {
+		firebase.database().ref('users/').off('value', this.fbCallback);
 	}
 
 	render() {
@@ -123,20 +125,54 @@ class TravelCard extends Component {
 		var date = dayOfWeekStr + ", " + travel.dateArray[1] + " " + travel.dateArray[2] + ", " + travel.dateArray[0];
 		/*<img src={require('../img/car1.png')} alt="Travel" />*/
 
+		//adds id to the travel AppWrap
+		const travelId = travel.key;
+
+		//user image
+		var userImg = "";
+		if (user.photourl === "") {
+				userImg = require('../img/profile.png');
+		} else {
+				userImg = user.photourl;
+		}
+		//user gender and age
+		//console.log("User gender: " + user.gender);
+		var genderAge = "";
+		if (user.gender !== undefined && user.age !== undefined) {
+
+					if (user.gender !== "" && user.age !== 0) {
+							var gender = user.gender.charAt(0).toUpperCase() + user.gender.slice(1);
+							genderAge = gender + ", " + user.age;
+					} else if (user.gender === "" && user.age !== 0) {
+							genderAge = "Age: " + user.age;
+					} else if (user.gender !== "" && user.age === 0){
+							genderAge = user.gender.charAt(0).toUpperCase() + user.gender.slice(1);
+					}
+		}
+
 		return (
-			<div className="TravelWrap">
+			<div id={travelId} className="TravelWrap">
 					<div className="TravelInfo">
 							<div className="TravelTitle">
-									<i class="fa fa-car"></i>
+									<i className="fa fa-car"></i>
 									<h3>{fromCity}</h3>
-									<i class="fas fa-caret-right"></i>
+									<i className="fas fa-caret-right"></i>
 									<h3>{toCity}</h3>
 							</div>
 							<h4><span>Date : </span><span>{date}</span></h4>
 							<p>{travel.content}</p>
 					</div>
 					<div className="UserInfo">
-							{user.firstname}
+							<div className="UserTop">
+									<img src={userImg} alt="User" />
+									<div className="UserText">
+											<p>{user.firstname}</p>
+											<p>{genderAge}</p>
+									</div>
+							</div>
+							<div className="Rate">
+									<i className="fal fa-star"></i>
+							</div>
 					</div>
 
 			</div>
@@ -148,6 +184,5 @@ class TravelCard extends Component {
 const mapStateToProps = state => ({
 });
 export default connect(mapStateToProps,{actionClickTab})(TravelCard);
-
 
 //
