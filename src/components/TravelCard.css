@@ -40,7 +40,8 @@
 }
 .TravelInfo h4 {
   font-size: 1rem;
-  margin-top: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 /*User styles*/
 .UserInfo {

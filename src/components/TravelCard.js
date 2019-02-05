@@ -207,6 +207,7 @@ class TravelCard extends Component {
 									<h3>{toCity}</h3>
 							</div>
 							<h4><span>Date : </span><span>{date}</span></h4>
+							<h4><span>Price : </span><span>{travel.price}</span></h4>
 							<p>{travel.content}</p>
 					</div>
 					<div className="UserInfo">

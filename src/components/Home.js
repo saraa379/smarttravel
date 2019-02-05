@@ -87,25 +87,37 @@ class Home extends Component {
 		var departCityMatchArray = []; //here matches departure cities
 		var destCityMatchArray = []; //here matches both departure and dest cities
 		if (departureCity !== "" && destinationCity !== ""){
-				//console.log("Both cities are chosen");
-				var departCity = departureCity.toLowerCase();
-				var destCity = destinationCity.toLowerCase();
+				var departCity = departureCity.title.toLowerCase();
+				var destCity = destinationCity.title.toLowerCase();
+				//console.log("Both cities are chosen: " + departCity);
+				//console.log("Both cities are chosen: " + destCity);
 				//search departure city match
 				for (var i = 0; i < travels.length; i++) {
 					var city = travels[i].fromCity.title.toLowerCase();
+					//console.log("Matching departure cities: " + travels[i].fromCity.title);
 					if (city === departCity) {
 							departCityMatchArray.push(travels[i]);
+							//console.log("Matching departure cities: " + travels[i].fromCity.title);
 					}
 				}//end of for
+
 				if (departCityMatchArray.length > 0) {
 					//search destination city match
-					/*
-					for (var i = 0; i < departCityMatchArray.length; i++) {
-						var destCity = departCityMatchArray[i].toCity.title.toLowerCase();
-						if (destCity === destinationCity) {
-								destCityMatchArray.push(departCityMatchArray[i]);
-						}*/
+
+							for (var i = 0; i < departCityMatchArray.length; i++) {
+									//console.log("Matching departure cities: " + departCityMatchArray[i].fromCity.title);
+									var tempDestCity = departCityMatchArray[i].toCity.title.toLowerCase();
+								if (destCity === tempDestCity) {
+										destCityMatchArray.push(departCityMatchArray[i]);
+										//console.log("Exact match travels: " + departCityMatchArray[i].fromCity.title + ', ' + departCityMatchArray[i].toCity.title);
+								}
+							}
 				}//end of if
+
+				//renders the result for exact match
+					if (destCityMatchArray.length > 0) {
+							this.setState({ travels: destCityMatchArray });
+					}
 
 		}
 		/*
