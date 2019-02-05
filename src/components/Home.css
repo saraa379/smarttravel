@@ -140,6 +140,15 @@
     padding-bottom: 30px
 }
 
+.NoMatchMsg {
+    color: #575E66;
+    font-family: 'GothamLightRegular';
+    font-weight: 400;
+    letter-spacing: .1em;
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+
 .travelResultTitle {
     display: flex;
     flex-flow: row nowrap;

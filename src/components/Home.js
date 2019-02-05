@@ -41,7 +41,8 @@ class Home extends Component {
 										resultTitle: "Available travels",
 										travels: [],
 										currentPage: 1,
-										itemsPerPage: 5
+										itemsPerPage: 5,
+										noMatchMsg: false
 		  };
 			this.getDepartureCity = this.getDepartureCity.bind(this);
 			this.getDestinationCity = this.getDestinationCity.bind(this);
@@ -74,6 +75,7 @@ class Home extends Component {
 	searchHandler(event){
 		this.setState({ departureCityError: false });
 		this.setState({ destinationCityError: false });
+		this.setState({ noMatchMsg: false });
 		//console.log("Search button is clicked");
 		const { departureCity, destinationCity, travels } = this.state;
 		if (departureCity === "") {
@@ -86,9 +88,11 @@ class Home extends Component {
 		var tempArray = [];
 		var departCityMatchArray = []; //here matches departure cities
 		var destCityMatchArray = []; //here matches both departure and dest cities
+		var destCountyMatchArray = []; //here matches both departure city and dest county
 		if (departureCity !== "" && destinationCity !== ""){
 				var departCity = departureCity.title.toLowerCase();
 				var destCity = destinationCity.title.toLowerCase();
+				var destCounty = destinationCity.county.toLowerCase();
 				//console.log("Both cities are chosen: " + departCity);
 				//console.log("Both cities are chosen: " + destCity);
 				//search departure city match
@@ -107,17 +111,38 @@ class Home extends Component {
 							for (var i = 0; i < departCityMatchArray.length; i++) {
 									//console.log("Matching departure cities: " + departCityMatchArray[i].fromCity.title);
 									var tempDestCity = departCityMatchArray[i].toCity.title.toLowerCase();
-								if (destCity === tempDestCity) {
-										destCityMatchArray.push(departCityMatchArray[i]);
-										//console.log("Exact match travels: " + departCityMatchArray[i].fromCity.title + ', ' + departCityMatchArray[i].toCity.title);
-								}
-							}
-				}//end of if
+									if (destCity === tempDestCity) {
+											destCityMatchArray.push(departCityMatchArray[i]);
+											//console.log("Exact match travels: " + departCityMatchArray[i].fromCity.title + ', ' + departCityMatchArray[i].toCity.title);
+									}
+							}//end of for
 
-				//renders the result for exact match
-					if (destCityMatchArray.length > 0) {
-							this.setState({ travels: destCityMatchArray });
-					}
+							//renders the result for exact match
+								if (destCityMatchArray.length > 0) {
+										this.setState({ travels: destCityMatchArray });
+								} else {
+										//checks if there is match in destiny counties
+											for (var j = 0; j < departCityMatchArray.length; j++) {
+													//console.log("Matching departure cities: " + departCityMatchArray[i].fromCity.title);
+													var tempDestCounty = departCityMatchArray[j].toCity.county.toLowerCase();
+													if (destCounty === tempDestCounty) {
+															destCountyMatchArray.push(departCityMatchArray[j]);
+															//console.log("Exact match travels: " + departCityMatchArray[i].fromCity.title + ', ' + departCityMatchArray[i].toCity.title);
+													}
+											}//end of for
+
+											if (destCountyMatchArray.length > 0) {
+													this.setState({ noMatchMsg: true });
+													this.setState({ travels: destCountyMatchArray });
+											} else {
+													this.setState({ noMatchMsg: true });
+											}
+
+								}
+
+				} else {
+						this.setState({ noMatchMsg: true });
+				}
 
 		}
 		/*
@@ -257,6 +282,7 @@ class Home extends Component {
 
 						<div className="TravelsSection">
 								<div className="travelsInner">
+										<h4 className={(this.state.noMatchMsg === true) ? "NoMatchMsg" : "Invincible"}>No exact match found</h4>
 										<div className="travelResultTitle">
 												<h2>{this.state.resultTitle}</h2>
 												<p>{nrOfTravels}</p>
