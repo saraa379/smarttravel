@@ -36,6 +36,8 @@ class Home extends Component {
 			this.state = {
 								    departureCity: "",
 										destinationCity: "",
+										departureCityError: false,
+										destinationCityError: false,
 										resultTitle: "Available travels",
 										travels: [],
 										currentPage: 1,
@@ -70,7 +72,42 @@ class Home extends Component {
 	}
 //click event on search button
 	searchHandler(event){
-		console.log("Search button is clicked");
+		this.setState({ departureCityError: false });
+		this.setState({ destinationCityError: false });
+		//console.log("Search button is clicked");
+		const { departureCity, destinationCity, travels } = this.state;
+		if (departureCity === "") {
+				this.setState({ departureCityError: true });
+		}
+		if (destinationCity === "") {
+				this.setState({ destinationCityError: true });
+		}
+		//search functionality
+		var tempArray = [];
+		var departCityMatchArray = []; //here matches departure cities
+		var destCityMatchArray = []; //here matches both departure and dest cities
+		if (departureCity !== "" && destinationCity !== ""){
+				//console.log("Both cities are chosen");
+				var departCity = departureCity.toLowerCase();
+				var destCity = destinationCity.toLowerCase();
+				//search departure city match
+				for (var i = 0; i < travels.length; i++) {
+					var city = travels[i].fromCity.title.toLowerCase();
+					if (city === departCity) {
+							departCityMatchArray.push(travels[i]);
+					}
+				}//end of for
+				if (departCityMatchArray.length > 0) {
+					//search destination city match
+					/*
+					for (var i = 0; i < departCityMatchArray.length; i++) {
+						var destCity = departCityMatchArray[i].toCity.title.toLowerCase();
+						if (destCity === destinationCity) {
+								destCityMatchArray.push(departCityMatchArray[i]);
+						}*/
+				}//end of if
+
+		}
 		/*
 		var arrayBeg = [];
 		var arrayEnd = [];
@@ -187,13 +224,19 @@ class Home extends Component {
 						<div className="SearchSection">
 								<h2>Where do you want to travel?</h2>
 								<div className="SearchInputs">
-											<InputSearch pText={"From"}
-											             callbackGetDepartCity={this.getDepartureCity}>
-										  </InputSearch>
-											<InputSearch pText={"To"}
-											             callbackGetDepartCity={this.getDestinationCity}>
-										  </InputSearch>
-											<div className="findBtn">
+											<div className="InputWrap">
+														<InputSearch pText={"From"}
+														             callbackGetDepartCity={this.getDepartureCity}>
+													  </InputSearch>
+														<p className={(this.state.departureCityError === true) ? "errorSearch" : "Invincible"}>* Please choose a departure city</p>
+											</div>
+											<div className="InputWrap">
+														<InputSearch pText={"To"}
+														             callbackGetDepartCity={this.getDestinationCity}>
+													  </InputSearch>
+														<p className={(this.state.destinationCityError === true) ? "errorSearch" : "Invincible"}>* Please choose a destination city</p>
+											</div>
+											<div className="findBtn" onClick={this.searchHandler}>
 														<i className="fas fa-search"></i>
 														<p>Find</p>
 											</div>

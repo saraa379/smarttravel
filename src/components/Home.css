@@ -1,5 +1,5 @@
-.notVisible {
-  display: none !important;
+.Invincible {
+  display: none;
 }
 .white {
   background-color: white;
@@ -95,7 +95,15 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+}
+.InputWrap {
+    display: inline;
+}
+.errorSearch {
+    color: red;
+    font-size: 0.9rem;
+    padding-top: 7px;
 }
 .findBtn {
     display: inline-flex;
@@ -104,7 +112,6 @@
     background-color: #1D7CF2;
     color: white;
     border-radius: 5px;
-    align-self: center;
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
