@@ -32,6 +32,13 @@ class TravelCard extends Component {
 			var userTemp = child.val();
 			if (userTemp.key === travel.ownerKey) {
 					that.setState({user: userTemp});
+					var userRate = userTemp.rates;
+					if (userRate.length >= 1) {
+							userRate.shift();
+							let sum = userRate.reduce((previous, current) => current.rate += previous.rate);
+							let avg = sum / userRate.length;
+							that.setState({rating: avg});
+					}
 			}
 			//dataArray.push(userTemp);
 			//console.log("Pushing travel object into array: " + travelTemp.key);
@@ -45,10 +52,43 @@ class TravelCard extends Component {
 		firebase.database().ref('users/').off('value', this.fbCallback);
 	}
 	onStarClick(nextValue, prevValue, name) {
-		const travel = this.props.travel;
-    this.setState({rating: nextValue});
-		console.log("Next value for rating is: " + nextValue);
+		const {loginStatus} = this.props.loginStatus;
+		const {currentUser} = this.props.currentUser;
+		var user = this.state.user;
+		//const travel = this.props.travel;
+		//console.log("Next value for rating is: " + nextValue);
+		if (loginStatus === true) {
+				this.setState({rating: nextValue});
+				//creates new rate when user clicked on star
+				var newRate = {
+							userkey: currentUser.key,
+							rate: nextValue
+						}//end of obj
+				var rates = currentUser.rates;
+				if (rates.length === 1) {
+						rates.push(newRate);
+				} else {
+						var exist = false;
+						for (var i = 1; i < rates.length; i++) {
+								if(rates[i].userkey === currentUser.key){
+										rates[i] = newRate;
+										exist = true;
+								}
+						}
+						if (exist === false) {
+								rates.push(newRate);
+						}
+				}
+						//rate into db
+				firebase.database().ref('users/' + user.key + '/rates').set(rates);
+		} else {
+			console.log("Please login to rate users");
+		}
   }
+
+	componentWillUnmount() {
+		firebase.database().ref('users/').off('value', this.fbCallback);
+	}
 	render() {
 		const travel = this.props.travel;
 		const { user, rating } = this.state;
@@ -195,6 +235,8 @@ class TravelCard extends Component {
 } //end of component
 
 const mapStateToProps = state => ({
+		loginStatus: state.loginStatus,
+		currentUser: state.currentUser
 });
 export default connect(mapStateToProps,{actionClickTab})(TravelCard);
 

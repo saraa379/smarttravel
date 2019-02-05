@@ -45,6 +45,7 @@ class Home extends Component {
 			this.getDestinationCity = this.getDestinationCity.bind(this);
 			this.pageNrClick = this.pageNrClick.bind(this);
 			this.fbCallback = this.fbCallback.bind(this);
+			this.searchHandler = this.searchHandler.bind(this);
 	}//end of constructor
 
 	componentWillMount(){
@@ -66,6 +67,37 @@ class Home extends Component {
 
 	componentDidMount(){
 		this.props.actionClickTab("home");
+	}
+//click event on search button
+	searchHandler(event){
+		console.log("Search button is clicked");
+		/*
+		var arrayBeg = [];
+		var arrayEnd = [];
+		this.setState({ term: event.target.value });
+		if (event.target.value === "") {
+				this.setState({ cityResult: [] });
+				this.setState({ cityResultVisible: false });
+	      this.setState({ chosenCityError: true });
+		} else {
+					var term = event.target.value.toLowerCase();
+					//console.log("Lower case term: " + term);
+
+				  for (var i = 0; i < cityArray.length; i++) {
+						var city = cityArray[i].title.toLowerCase();
+						//console.log("City in search handler" + city);
+				  	if (city.includes(term)) {
+								if (city.startsWith(term)) {
+										arrayBeg.push(cityArray[i]);
+								} else {
+										arrayEnd.push(cityArray[i]);
+								}
+				  	}
+				  }
+					var array = arrayBeg.concat(arrayEnd);
+					this.setState({ cityResult: array });
+					this.setState({ cityResultVisible: true });
+		}*/
 	}
 
 	//Recieves selected city object from InputSearch field
