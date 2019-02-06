@@ -7,12 +7,25 @@ import {actionClickTab} from '../actions/menuActions.js';
 import './Profile.css';
 
 class Profile extends Component {
+	constructor(props) {
+			super(props);
+			this.state = {
+										chosenTab: "about"
+			};
+			this.menuClick = this.menuClick.bind(this);
+			//this.onStarClick = this.onStarClick.bind(this);
+	}//end of constructor
+
 	componentDidMount(){
 		this.props.actionClickTab("profile");
+	}
+	menuClick(menuItem){
+		this.setState({ chosenTab: menuItem });
 	}
 	render() {
 		const {loginStatus} = this.props.loginStatus;
 		const {currentUser} = this.props.currentUser;
+		const { chosenTab } = this.state;
 		//user image
 		var userImg = "";
 		if (currentUser.photourl === "") {
@@ -34,11 +47,17 @@ class Profile extends Component {
 
 								<div className="ProfileBottom">
 										<div className="ProfileMenu">
+													<div className={(chosenTab === "about") ? "Btn chosenBtn" : "Btn"}
+													     onClick={() => this.menuClick("about")}>About</div>
+													<div className={(chosenTab === "travels") ? "Btn chosenBtn" : "Btn"}
+													     onClick={() => this.menuClick("travels")}>Offered Travels</div>
+													<div className={(chosenTab === "messages") ? "Btn chosenBtn LastBtn" : "Btn LastBtn"}
+													     onClick={() => this.menuClick("messages")}>Messages</div>
 										</div>
 										<div className="ProfileMenuContent">
 										</div>
 								</div>
-								
+
 					</div>
 
 					<div className={(loginStatus === false) ? "ProfileMini" : "notVisible"}>
