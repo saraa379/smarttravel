@@ -13,7 +13,7 @@ const content = [
 		title: 'Share your travel with others',
 		description:
 		'Smart Travel connects passengers with drivers. Save your travel cost and environment through ride sharing.',
-		image: require('../img/car18.jpg')
+		image: require('../img/car1.jpg')
 	},
 	{
 		title: 'Travelling is not as expensive as you think',

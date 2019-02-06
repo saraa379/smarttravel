@@ -42,8 +42,8 @@ main::after {
 
 /*Footer styles*/
 footer {
-    background-color: #141C27;
+    background-color: #1D2331;
     padding: 20px;
     color: white;
-    opacity: 0.7;
+    opacity: 1;
 }
