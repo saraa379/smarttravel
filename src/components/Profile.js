@@ -22,11 +22,13 @@ class Profile extends Component {
 			this.menuClick = this.menuClick.bind(this);
 			this.handleChangeFirstname = this.handleChangeFirstname.bind(this);
 			this.handleChangeLastname = this.handleChangeLastname.bind(this);
-			this.handleChangeAge = this.handleChangeAge.bind(this);
 			this.nameEditSave = this.nameEditSave.bind(this);
 			this.nameEditCancel = this.nameEditCancel.bind(this);
 			this.nameEdit = this.nameEdit.bind(this);
 			this.ageEdit = this.ageEdit.bind(this);
+			this.handleChangeAge = this.handleChangeAge.bind(this);
+			this.ageEditCancel = this.ageEditCancel.bind(this);
+			this.ageEditSave = this.ageEditSave.bind(this);
 	}//end of constructor
 
 	componentDidMount(){
@@ -68,16 +70,16 @@ class Profile extends Component {
 			const { inputAge } = this.state;
 			const {currentUser} = this.props.currentUser;
 
-			var integer = parseInt(inputAge, 10);
+			if (inputAge !== "") {
+					var integer = parseInt(inputAge, 10);
+					if (isNaN(integer) === false) {
 
-			if (inputAge !== "" && integer !== NaN) {
-
-					firebase.database().ref('users/' + currentUser.key + '/age').set(integer);
-					let tempUser = currentUser;
-					tempUser.age = integer;
-					this.props.actionUpdateCurrentUser(tempUser);
+							firebase.database().ref('users/' + currentUser.key + '/age').set(integer);
+							let tempUser = currentUser;
+							tempUser.age = integer;
+							this.props.actionUpdateCurrentUser(tempUser);
+					}
 			}
-
 			this.setState({ageContentVisible: true});
 	}
 	nameEdit(){
@@ -175,7 +177,7 @@ class Profile extends Component {
 															      <div className="FlexWrapColumn InnerWrapProfile">
 															          <div className="InputWrapProfile">
 															                <label>Age</label>
-															                <input type = "text" placeholder={currentUser.age} onChange={this.handleChangeAge} value={this.state.inputAge}/>
+															                <input type = "text" placeholder={age} onChange={this.handleChangeAge} value={this.state.inputAge}/>
 															          </div>
 															          <div className="InputWrapProfile ProfileBtns">
 															                <div id="cancelBtnAge" className="ProfileBtn" onClick={this.ageEditCancel}>Cancel</div>
