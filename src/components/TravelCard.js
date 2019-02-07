@@ -85,10 +85,6 @@ class TravelCard extends Component {
 			console.log("Please login to rate users");
 		}
   }
-
-	componentWillUnmount() {
-		firebase.database().ref('users/').off('value', this.fbCallback);
-	}
 	render() {
 		const travel = this.props.travel;
 		const { user, rating } = this.state;

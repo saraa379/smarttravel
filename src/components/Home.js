@@ -85,7 +85,7 @@ class Home extends Component {
 				this.setState({ destinationCityError: true });
 		}
 		//search functionality
-		var tempArray = [];
+		//var tempArray = [];
 		var departCityMatchArray = []; //here matches departure cities
 		var destCityMatchArray = []; //here matches both departure and dest cities
 		var destCountyMatchArray = []; //here matches both departure city and dest county
@@ -108,11 +108,11 @@ class Home extends Component {
 				if (departCityMatchArray.length > 0) {
 					//search destination city match
 
-							for (var i = 0; i < departCityMatchArray.length; i++) {
+							for (var it = 0; it < departCityMatchArray.length; it++) {
 									//console.log("Matching departure cities: " + departCityMatchArray[i].fromCity.title);
-									var tempDestCity = departCityMatchArray[i].toCity.title.toLowerCase();
+									var tempDestCity = departCityMatchArray[it].toCity.title.toLowerCase();
 									if (destCity === tempDestCity) {
-											destCityMatchArray.push(departCityMatchArray[i]);
+											destCityMatchArray.push(departCityMatchArray[it]);
 											//console.log("Exact match travels: " + departCityMatchArray[i].fromCity.title + ', ' + departCityMatchArray[i].toCity.title);
 									}
 							}//end of for
@@ -145,33 +145,7 @@ class Home extends Component {
 				}
 
 		}
-		/*
-		var arrayBeg = [];
-		var arrayEnd = [];
-		this.setState({ term: event.target.value });
-		if (event.target.value === "") {
-				this.setState({ cityResult: [] });
-				this.setState({ cityResultVisible: false });
-	      this.setState({ chosenCityError: true });
-		} else {
-					var term = event.target.value.toLowerCase();
-					//console.log("Lower case term: " + term);
 
-				  for (var i = 0; i < cityArray.length; i++) {
-						var city = cityArray[i].title.toLowerCase();
-						//console.log("City in search handler" + city);
-				  	if (city.includes(term)) {
-								if (city.startsWith(term)) {
-										arrayBeg.push(cityArray[i]);
-								} else {
-										arrayEnd.push(cityArray[i]);
-								}
-				  	}
-				  }
-					var array = arrayBeg.concat(arrayEnd);
-					this.setState({ cityResult: array });
-					this.setState({ cityResultVisible: true });
-		}*/
 	}
 
 	//Recieves selected city object from InputSearch field

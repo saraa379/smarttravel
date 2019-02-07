@@ -103,11 +103,11 @@
     font-weight: bold;
 }
 .chosenBtn {
-    border-bottom: 3px solid #1D7CF2 !important;
-    color: #1D7CF2 !important;
+    border-bottom: 3px solid rgba(10, 69, 220, 0.7) !important;
+    color: rgb(10, 69, 220) !important;
 }
 .ProfileMenu .Btn:hover {
-    color: #1D7CF2 !important;
+    color: rgb(10, 69, 220) !important;
 }
 .ProfileMenuContent {
     background-color: white;
@@ -116,141 +116,114 @@
     display: inline-flex;
     flex-grow: 4;
 }
-
-/*Content section styles*/
-.OfferARideContent {
-    color: #575E66;
-    background-color: white;
-    width: 80%;
-    border: 1px solid #E0EEEE;
-    border-radius: 3px;
-    /*
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
-    margin: 10px auto;
-    min-height: 200px;
-    margin-top: 25px;
-    max-width: 800px;
+.AboutContent, .TravelsContent, .MessagesContent {
+    width: 100%;
+}
+.ProfileMenuContent .Edit {
+    color: rgb(10, 69, 220);
+    display: inline;
+}
+.ProfileMenuContent .Edit:hover {
+    border-bottom: 2px solid rgba(10, 69, 220, 0.7);
+}
+.FlexWrap {
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row nowrap;
     justify-content: flex-start;
+}
+.FlexWrapColumn {
+  display: inline-flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+/*About me styles*/
+.ProfileMenuContent h3 {
     font-family: 'GothamLightRegular';
-}
-.From {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-}
-.OfferARideContent h3 {
-    margin: 20px;
     text-transform: uppercase;
-    letter-spacing: .1em;
-    font-family: 'GothamLightRegular';
-}
-.OfferARideContent .line {
-    background-color: #EDF0F2;
-    margin: 10px;
-    height: 1px;
-}
-.selects {
-    display: inline-flex;
-    flex-flow: column nowrap;
-    justify-content: flex-end;
-    align-items: flex-end;
-}
-.selectDiv {
-    display: inline-flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
+    color: #575E66;
     margin: 20px;
 }
-.formSection {
+.Name, .Age {
+    margin: 20px;
+    display: flex;
+    flex-flow: row nowrap;
     position: relative;
-    margin-bottom: 25px;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #DCDCDC;
+    padding-bottom: 20px;
+    padding-top: 10px;
 }
-.selectDiv select {
-    height: 30px;
-    width: 150px;
-}
-.selectDiv label {
-    margin-right: 30px;
+.ProfileMenuContent label {
     font-weight: bold;
     font-family: 'GothamLightRegular';
+    color: #575E66;
+    width: 150px;
 }
-.selectDiv div {
-    display: block;
+.Name p {
+    margin: 0;
 }
-.OfferARideContent form {
-    min-width: 300px;
+.NameEdit, .AgeEdit {
+    margin: 20px;
     position: relative;
+    border-bottom: 2px solid #DCDCDC;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
 }
-/*Search field styles*/
-.offer input[type="text"] {
+
+.ProfileMenuContent input[type="text"] {
    outline: none;
    padding: 8px;
-   width: 100%;
-   margin-top: 10px;
-   margin-bottom: 2px !important;
+   width: 200px;
    color: #575E66;
-   border: 1px solid grey;
-   height: 35px;
+   border: 1px solid #A9A9A9;
+   height: 30px;
    border-radius: 3px;
    font-family: 'GothamLightRegular';
 }
-.cityResultDiv {
-    max-height: 150px;
-    overflow-y: scroll;
-    border: 1px solid #e7e7e7;
-    position: absolute;
-    width: 100%;
-    background-color: white;
-    opacity: 1;
-    z-index: 10
-}
-.city {
-    padding: 5px;
-}
-.city:hover {
-    background-color: #e3e3e3;
-    border: 1px solid #e7e7e7;
-}
-
-/*Date Picker section styles*/
-.datePicker {
-  position: absolute;
-  width: 100%;
-  background-color: white;
-  opacity: 1;
-  z-index: 10
-}
-
-/*Round trip styles*/
-.checkReturn {
+.InputWrapProfile {
     display: flex;
+    justify-content: flex-start;
     flex-flow: row nowrap;
-    justify-content: center;
     align-items: center;
+    margin-top: 20px;
 }
-
-.checkReturn input[type="checkbox"] {
-    align-self: center;
-    cursor: pointer;
-}
-.checkReturn label {
-    align-self: center;
-}
-
-.formSection textarea {
-    width: 100%;
-    outline: none;
-    padding: 8px;
-    margin-top: 10px;
-    margin-bottom: 2px !important;
-    color: #575E66;
-    border: 1px solid grey;
-    border-radius: 3px;
+.ProfileBtn {
+    display: inline-block;
+    width: 100px;
+    line-height: 100%;
+    background-color: #1D7CF2;
+    border-radius: 5px;
+    font-size: 16px;
+    border: 2px solid #1D7CF2;
     font-family: 'GothamLightRegular';
+    color: white;
+    text-align: center;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+#cancelBtn {
+    background-color: #C0C0C0;
+    border: 2px solid #C0C0C0;
+    margin-right: 20px;
+}
+#cancelBtnAge {
+    background-color: #C0C0C0;
+    border: 2px solid #C0C0C0;
+    margin-right: 20px;
+}
+.ProfileBtns {
+    justify-content: center !important;
+}
+
+/*Age section*/
+.AgeEdit {
+
 }
 
 @media (max-width: 1500px) {
