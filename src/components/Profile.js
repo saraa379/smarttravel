@@ -17,7 +17,8 @@ class Profile extends Component {
 										inputFirstname: "",
 										inputLastname: "",
 										ageContentVisible: true,
-										inputAge: ""
+										inputAge: "",
+										genderValue: ""
 			};
 			this.menuClick = this.menuClick.bind(this);
 			this.handleChangeFirstname = this.handleChangeFirstname.bind(this);
@@ -29,10 +30,14 @@ class Profile extends Component {
 			this.handleChangeAge = this.handleChangeAge.bind(this);
 			this.ageEditCancel = this.ageEditCancel.bind(this);
 			this.ageEditSave = this.ageEditSave.bind(this);
+			this.handleChangeGender = this.handleChangeGender.bind(this);
+			this.genderEditSave = this.genderEditSave.bind(this);
 	}//end of constructor
 
 	componentDidMount(){
 		this.props.actionClickTab("profile");
+		const {currentUser} = this.props.currentUser;
+		this.setState({genderValue: currentUser.gender});
 	}
 	menuClick(menuItem){
 		this.setState({ chosenTab: menuItem });
@@ -97,6 +102,19 @@ class Profile extends Component {
 			this.setState({ageContentVisible: true});
 			this.setState({inputAge: ""});
 	}
+	handleChangeGender(event){
+			this.setState({genderValue: event.target.value});
+	}
+	genderEditSave(){
+			const gender = this.state.genderValue;
+			const {currentUser} = this.props.currentUser;
+			if (gender !== "") {
+					firebase.database().ref('users/' + currentUser.key + '/gender').set(gender);
+					let tempUser = currentUser;
+					tempUser.gender = gender;
+					this.props.actionUpdateCurrentUser(tempUser);
+			}
+	}
 
 	render() {
 		const {loginStatus} = this.props.loginStatus;
@@ -117,6 +135,8 @@ class Profile extends Component {
 				//console.log("Users age: " + currentUser.age);
 				age = currentUser.age;
 		}
+		//gender
+		console.log("GEnder value in render: " + this.state.genderValue);
 
 		return (
 			<div className="innerWrap">
@@ -184,6 +204,19 @@ class Profile extends Component {
 															                <div className="ProfileBtn" onClick={this.ageEditSave}>Save</div>
 															          </div>
 															      </div>
+															</div>
+
+															<div className="Gender">
+																	<div className="FlexWrap">
+																			<label>Gender</label>
+																			<select value={this.state.genderValue} onChange={this.handleChangeGender}>
+																						<option value="">Select gender</option>
+																            <option value="Male">Male</option>
+																            <option value="Female">Female</option>
+																            <option value="Other">Other</option>
+														          </select>
+																	</div>
+																	<div className="ProfileBtn" onClick={this.genderEditSave}>Save</div>
 															</div>
 
 													</div>
