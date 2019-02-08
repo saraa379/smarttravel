@@ -18,7 +18,9 @@ class Profile extends Component {
 										inputLastname: "",
 										ageContentVisible: true,
 										inputAge: "",
-										genderValue: ""
+										genderValue: "",
+										phoneContentVisible: true,
+										inputPhone: ""
 			};
 			this.menuClick = this.menuClick.bind(this);
 			this.handleChangeFirstname = this.handleChangeFirstname.bind(this);
@@ -32,6 +34,10 @@ class Profile extends Component {
 			this.ageEditSave = this.ageEditSave.bind(this);
 			this.handleChangeGender = this.handleChangeGender.bind(this);
 			this.genderEditSave = this.genderEditSave.bind(this);
+			this.phoneEdit = this.phoneEdit.bind(this);
+			this.handleChangePhone = this.handleChangePhone.bind(this);
+			this.phoneEditCancel = this.phoneEditCancel.bind(this);
+			this.phoneEditSave = this.phoneEditSave.bind(this);
 	}//end of constructor
 
 	componentDidMount(){
@@ -115,11 +121,33 @@ class Profile extends Component {
 					this.props.actionUpdateCurrentUser(tempUser);
 			}
 	}
+	phoneEdit(){
+			this.setState({phoneContentVisible: false});
+	}
+	handleChangePhone(event){
+		this.setState({inputPhone: event.target.value});
+	}
+	phoneEditCancel(){
+			this.setState({phoneContentVisible: true});
+			this.setState({inputPhone: ""});
+	}
+	phoneEditSave(){
+			const { inputPhone } = this.state;
+			const {currentUser} = this.props.currentUser;
+
+			if (inputPhone !== "") {
+							firebase.database().ref('users/' + currentUser.key + '/phone').set(inputPhone);
+							let tempUser = currentUser;
+							tempUser.phone = inputPhone;
+							this.props.actionUpdateCurrentUser(tempUser);
+			}
+			this.setState({phoneContentVisible: true});
+	}
 
 	render() {
 		const {loginStatus} = this.props.loginStatus;
 		const {currentUser} = this.props.currentUser;
-		const { chosenTab, nameContentVisible, ageContentVisible } = this.state;
+		const { chosenTab, nameContentVisible, ageContentVisible, phoneContentVisible } = this.state;
 		//user image
 		var userImg = "";
 		if (currentUser.photourl === "") {
@@ -135,8 +163,13 @@ class Profile extends Component {
 				//console.log("Users age: " + currentUser.age);
 				age = currentUser.age;
 		}
-		//gender
-		console.log("GEnder value in render: " + this.state.genderValue);
+		//phone
+		var phone = "Not available";
+		if (currentUser.phone !== "") {
+				//console.log("Users age: " + currentUser.age);
+				phone = currentUser.phone;
+		}
+
 
 		return (
 			<div className="innerWrap">
@@ -216,7 +249,28 @@ class Profile extends Component {
 																            <option value="Other">Other</option>
 														          </select>
 																	</div>
-																	<div className="ProfileBtn" onClick={this.genderEditSave}>Save</div>
+																	<div className="Edit" onClick={this.genderEditSave}>Save</div>
+															</div>
+
+															<div className={(phoneContentVisible === true) ? "Phone" : "notVisible"}>
+																	<div className="FlexWrap">
+																			<label>Phone</label>
+																			<p>{phone}</p>
+																	</div>
+																	<div className="Edit" onClick={this.phoneEdit}>Edit</div>
+															</div>
+
+															<div className={(phoneContentVisible === false) ? "PhoneEdit" : "notVisible"}>
+															      <div className="FlexWrapColumn InnerWrapProfile">
+															          <div className="InputWrapProfile">
+															                <label>Phone</label>
+															                <input type = "text" placeholder={phone} onChange={this.handleChangePhone} value={this.state.inputPhone}/>
+															          </div>
+															          <div className="InputWrapProfile ProfileBtns">
+															                <div id="cancelBtnPhone" className="ProfileBtn" onClick={this.phoneEditCancel}>Cancel</div>
+															                <div className="ProfileBtn" onClick={this.phoneEditSave}>Save</div>
+															          </div>
+															      </div>
 															</div>
 
 													</div>

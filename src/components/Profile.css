@@ -143,7 +143,7 @@
     color: #575E66;
     margin: 20px;
 }
-.Name, .Age, .Gender {
+.Name, .Age, .Gender, .Phone {
     margin: 20px;
     display: flex;
     flex-flow: row nowrap;
@@ -163,7 +163,7 @@
 .Name p {
     margin: 0;
 }
-.NameEdit, .AgeEdit {
+.NameEdit, .AgeEdit, .PhoneEdit {
     margin: 20px;
     position: relative;
     border-bottom: 2px solid #DCDCDC;
@@ -217,6 +217,11 @@
     border: 2px solid #C0C0C0;
     margin-right: 20px;
 }
+#cancelBtnPhone {
+    background-color: #C0C0C0;
+    border: 2px solid #C0C0C0;
+    margin-right: 20px;
+}
 .ProfileBtns {
     justify-content: center !important;
 }
@@ -230,6 +235,7 @@
 .Gender .ProfileBtn {
     margin-top: 0 !important;
 }
+/*Phone section styles*/
 
 @media (max-width: 1500px) {
     .ProfileBottom {
