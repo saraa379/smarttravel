@@ -16,6 +16,7 @@ class TravelsContent extends Component {
 										passedtravels: []
 		  };
 			this.callLater = this.callLater.bind(this);
+			this.travelEdit = this.travelEdit.bind(this);
 	}//end of constructor
 
 	componentWillReceiveProps(nextProps){
@@ -52,19 +53,27 @@ class TravelsContent extends Component {
 	callLater(travels){
 			let unique = [...new Set(travels)];
 			//console.log("Size of travels array is: " + travels.length);
+			for (var i = 0; i < unique.length; i++) {
+					unique[i].edit = false;
+			}
 			this.setState({ travels: unique});
+	}
+
+	travelEdit(key){
+			console.log("Travel key for editing: " + key);
 	}
 
 	render() {
 		const { noTravels, noPassedTravels, travels } = this.state;
-
+		/*
 		for (var i = 0; i < travels.length; i++) {
 			console.log("travels in render: " + travels[i].key);
-		}
+		}*/
 		const listItems = travels.map(function(travel) {
 			var fromCity = travel.fromCity.title.charAt(0).toUpperCase() + travel.fromCity.title.slice(1);
 			var toCity = travel.toCity.title.charAt(0).toUpperCase() + travel.toCity.title.slice(1);
-
+			//var that = this;
+			//console.log("Travels editable: " + travel.edit);
 			//Convert month string to number string
 					var month;
 					switch (travel.dateArray[1]) {
@@ -143,29 +152,38 @@ class TravelsContent extends Component {
 
 					var date = dayOfWeekStr + ", " + travel.dateArray[1] + " " + travel.dateArray[2] + ", " + travel.dateArray[0];
 
-					return <div className="TravelWrap2" key={travel.key}>
+					if (travel.edit === true) {
+							return <div className="TravelWrap2" key={travel.key}>
+																Edit page
 
-											<div className="TravelInfo2">
-													<div className="TravelTitle2">
-															<i className="fa fa-car"></i>
-															<h3>{fromCity}</h3>
-															<i className="fas fa-caret-right"></i>
-															<h3>{toCity}</h3>
-													</div>
-													<h4><span>Date : </span><span>{date}</span></h4>
-													<h4><span>Price : </span><span>{travel.price}</span></h4>
-													<p>{travel.content}</p>
-											</div>
+										 </div>;
+					} else {
+							return <div className="TravelWrap2" key={travel.key}>
 
-											<div className="TravelBtnsWrap">
-													<div className="TravelBtn">
+													<div className="TravelInfo2">
+															<div className="TravelTitle2">
+																	<i className="fa fa-car"></i>
+																	<h3>{fromCity}</h3>
+																	<i className="fas fa-caret-right"></i>
+																	<h3>{toCity}</h3>
+															</div>
+															<h4><span>Date : </span><span>{date}</span></h4>
+															<h4><span>Price : </span><span>{travel.price}</span></h4>
+															<p>{travel.content}</p>
 													</div>
-													<div className="TravelBtn">
-													</div>
-											</div>
-								 </div>;
 
-			}); //end of map
+													<div className="TravelBtnsWrap">
+															<div className="TravelBtn" onClick={() => this.travelEdit(travel.key)}>
+																		Edit
+															</div>
+															<div className="TravelBtn TravelBtnRemove">
+																		Remove
+															</div>
+													</div>
+
+										 </div>;
+					}//end of if
+			}, this); //end of map
 
 
 

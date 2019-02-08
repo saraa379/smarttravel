@@ -161,7 +161,10 @@ class TravelCard extends Component {
 			  case 7:
 			    dayOfWeekStr = "Sunday";
 				  break;
-					default:
+				case 0:
+					dayOfWeekStr = "Sunday";
+					break;
+				default:
 		        console.log("No weekend is matched");
 				}
 
