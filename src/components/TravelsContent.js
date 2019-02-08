@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {actionClickTab} from '../actions/menuActions.js';
 import firebase from '../firebase/firebase.js';
 import './TravelsContent.css';
+import TravelEdit from './TravelEdit.js';
 
 
 
@@ -60,7 +61,14 @@ class TravelsContent extends Component {
 	}
 
 	travelEdit(key){
-			console.log("Travel key for editing: " + key);
+			var tempArray = this.state.travels;
+			//console.log("Travel key for editing: " + key);
+			for (var i = 0; i < tempArray.length; i++) {
+					if (tempArray[i].key === key) {
+							tempArray[i].edit = true;
+					}
+			}
+			this.setState({ travels: tempArray });
 	}
 
 	render() {
@@ -154,7 +162,8 @@ class TravelsContent extends Component {
 
 					if (travel.edit === true) {
 							return <div className="TravelWrap2" key={travel.key}>
-																Edit page
+														<TravelEdit travel={travel}>
+														</TravelEdit>
 
 										 </div>;
 					} else {
