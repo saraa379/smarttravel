@@ -143,7 +143,7 @@
     color: #575E66;
     margin: 20px;
 }
-.Name, .Age, .Gender, .Phone {
+.Name, .Age, .Gender, .Phone, .Email, .Password {
     margin: 20px;
     display: flex;
     flex-flow: row nowrap;
@@ -163,7 +163,7 @@
 .Name p {
     margin: 0;
 }
-.NameEdit, .AgeEdit, .PhoneEdit {
+.NameEdit, .AgeEdit, .PhoneEdit, .EmailEdit {
     margin: 20px;
     position: relative;
     border-bottom: 2px solid #DCDCDC;
@@ -218,6 +218,11 @@
     margin-right: 20px;
 }
 #cancelBtnPhone {
+    background-color: #C0C0C0;
+    border: 2px solid #C0C0C0;
+    margin-right: 20px;
+}
+#cancelBtnEmail {
     background-color: #C0C0C0;
     border: 2px solid #C0C0C0;
     margin-right: 20px;

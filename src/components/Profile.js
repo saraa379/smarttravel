@@ -7,6 +7,7 @@ import {actionClickTab} from '../actions/menuActions.js';
 import './Profile.css';
 import firebase from '../firebase/firebase.js';
 import {actionUpdateCurrentUser} from '../actions/updateCurrentUserAction.js';
+import TravelsContent from './TravelsContent.js';
 
 class Profile extends Component {
 	constructor(props) {
@@ -166,8 +167,17 @@ class Profile extends Component {
 		//phone
 		var phone = "Not available";
 		if (currentUser.phone !== "") {
-				//console.log("Users age: " + currentUser.age);
 				phone = currentUser.phone;
+		}
+		//email
+		var email = "Not available";
+		if (currentUser.email !== "") {
+				email = currentUser.email;
+		}
+		//password
+		var pass = "Not available";
+		if (currentUser.password !== "") {
+				pass = currentUser.password;
 		}
 
 
@@ -273,12 +283,27 @@ class Profile extends Component {
 															      </div>
 															</div>
 
+															<div className="Email">
+																	<div className="FlexWrap">
+																			<label>Email</label>
+																			<p>{email}</p>
+																	</div>
+															</div>
+
+															<div className="Password">
+																	<div className="FlexWrap">
+																			<label>Password</label>
+																			<p>{pass}</p>
+																	</div>
+															</div>
+
+
 													</div>
 
 
 
 													<div className={(chosenTab === "travels") ? "TravelsContent" : "notVisible"}>
-															Travel content
+															<TravelsContent user={currentUser}></TravelsContent>
 													</div>
 
 													<div className={(chosenTab === "messages") ? "MessagesContent" : "notVisible"}>

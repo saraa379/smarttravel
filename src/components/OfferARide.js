@@ -264,9 +264,7 @@ class OfferARide extends Component {
     if (loginStatus === true && chosenCity !== "empty" && toChosenCity !== "empty"
         && dateArray.length >= 1 && price !== "" && content !== "" && roundDateError === false){
       console.log("Offer form is submitted");
-
-
-
+      var travels = currentUser.offeredtravels;
       const newOffer = {
 						fromCity: chosenCity,
 						toCity: toChosenCity,
@@ -293,28 +291,20 @@ class OfferARide extends Component {
                 key: "",
                 passed: false
             }//end of obj
-            var returnTravelKey = firebase.database().ref('travels/').push(newReturn).key;
+            let returnTravelKey = firebase.database().ref('travels/').push(newReturn).key;
        			firebase.database().ref('travels/' + returnTravelKey + '/key').set(returnTravelKey);
             newOffer.returntravelkey = returnTravelKey;
-            //Adding travel into user object in the db
-            var travelsRet = currentUser.offeredtravels;
-            travelsRet.push(returnTravelKey);
-            firebase.database().ref('users/' + currentUser.key + '/offeredtravels').set(travelsRet);
+            travels.push(returnTravelKey);
             //updating currentUser object in redux store
             currentUser.offeredtravels.push(returnTravelKey);
         }//end of if return
 
         //Adding travel add to database
-        var travelKey = firebase.database().ref('travels/').push(newOffer).key;
+        let travelKey = firebase.database().ref('travels/').push(newOffer).key;
         firebase.database().ref('travels/' + travelKey + '/key').set(travelKey);
 
         //Adding travel into user object in the db
-        var travels = currentUser.offeredtravels;
         travels.push(travelKey);
-
-        for (var i = 0; i < travels.length; i++) {
-          console.log("Travels from user submit: " + travels[i]);
-        }
         firebase.database().ref('users/' + currentUser.key + '/offeredtravels').set(travels);
         //updating currentUser object in redux store
         currentUser.offeredtravels.push(travelKey);

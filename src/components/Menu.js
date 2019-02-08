@@ -232,16 +232,17 @@ class Menu extends Component {
 		 }
   }
 	callLaterLogin(email){
-			//accessing users from db
-			const {users} = this.props.users;
-			for(let child in users){
-						let r = users[child];
-							//console.log("user email: " + r.email);
-						if(r.email === email){
-							//updating current user in the redux
-							this.props.actionUpdateCurrentUser(r);
-						} //end of if else
+		var that = this;
+		firebase.database().ref('users/').once('value', function(snapshot) {
+			let data = snapshot.val();
+			for(let child in data){
+				let r = data[child];
+				if(r.email === email){
+					//updating current user in the redux
+					that.props.actionUpdateCurrentUser(r);
+				} //end of if else
 			}//end of for
+		})//end of db.ref
 
 			//closing the login modal
 			this.onCloseModal();
