@@ -83,7 +83,7 @@ class TravelEdit extends Component {
    }
 //saves the changes of travel into db
 	 editTravel() {
-			const { departureCity, destinationCity, selectedDay, dateArray,
+			const { departureCity, destinationCity, dateArray,
 				      price, content, travel } = this.state;
 
 				if (departureCity !== "") {
@@ -95,7 +95,13 @@ class TravelEdit extends Component {
 				if (dateArray.length > 1) {
 						firebase.database().ref('travels/' + travel.key + '/dateArray').set(dateArray);
 				}
-
+				if (price !== "") {
+						firebase.database().ref('travels/' + travel.key + '/price').set(price);
+				}
+				if (content !== "") {
+						firebase.database().ref('travels/' + travel.key + '/content').set(content);
+				}
+				
 				this.props.cancel(travel.key);
    }
 	 //cancels the editing and closes the edit page
