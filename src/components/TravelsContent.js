@@ -18,6 +18,7 @@ class TravelsContent extends Component {
 		  };
 			this.callLater = this.callLater.bind(this);
 			this.travelEdit = this.travelEdit.bind(this);
+			this.cancelEdit = this.cancelEdit.bind(this);
 	}//end of constructor
 
 	componentWillReceiveProps(nextProps){
@@ -66,6 +67,16 @@ class TravelsContent extends Component {
 			for (var i = 0; i < tempArray.length; i++) {
 					if (tempArray[i].key === key) {
 							tempArray[i].edit = true;
+					}
+			}
+			this.setState({ travels: tempArray });
+	}
+	cancelEdit(key){
+			var tempArray = this.state.travels;
+			//console.log("Travel key for editing: " + key);
+			for (var i = 0; i < tempArray.length; i++) {
+					if (tempArray[i].key === key) {
+							tempArray[i].edit = false;
 					}
 			}
 			this.setState({ travels: tempArray });
@@ -162,7 +173,7 @@ class TravelsContent extends Component {
 
 					if (travel.edit === true) {
 							return <div className="TravelWrap2" key={travel.key}>
-														<TravelEdit travel={travel}>
+														<TravelEdit travel={travel} cancel={this.cancelEdit}>
 														</TravelEdit>
 
 										 </div>;

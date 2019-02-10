@@ -91,6 +91,34 @@
 .TravelBtnRemove {
     margin-top: 20px;
 }
+/*Button styles*/
+.TravelBtns {
+    justify-content: center !important;
+}
+.TravelBtn {
+    display: inline-block;
+    width: 100px;
+    line-height: 100%;
+    background-color: #1D7CF2;
+    border-radius: 5px;
+    font-size: 16px;
+    border: 2px solid #1D7CF2;
+    font-family: 'GothamLightRegular';
+    color: white;
+    text-align: center;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+#cancelBtnTravel {
+    background-color: #C0C0C0;
+    border: 2px solid #C0C0C0;
+    margin-right: 20px;
+}
+
+
 /*Media queries*/
 @media (min-width: 1200px) {
 

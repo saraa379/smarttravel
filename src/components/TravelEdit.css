@@ -3,12 +3,16 @@
   flex-flow: column nowrap;
   justify-content: center;
 }
+.InnerWrapProfile {
+    margin: 0 auto !important;
+}
 .InputWrapTravel {
     display: flex;
     justify-content: flex-start;
     flex-flow: row nowrap;
     align-items: center;
     margin-top: 20px;
+    position: relative;
 }
 .TravelEditWrap input[type="text"] {
    outline: none;
@@ -25,4 +29,26 @@
     font-family: 'GothamLightRegular';
     color: #575E66;
     width: 150px;
+}
+/*Date styles*/
+.datePicker {
+  position: absolute;
+  width: 100%;
+  background-color: white;
+  opacity: 1;
+  z-index: 10
+}
+.notVisible {
+  display: none !important;
+}
+.TravelEditWrap textarea {
+    width: 200px;
+    outline: none;
+    padding: 8px;
+    margin-top: 10px;
+    margin-bottom: 2px !important;
+    color: #575E66;
+    border: 1px solid #A9A9A9;
+    border-radius: 3px;
+    font-family: 'GothamLightRegular';
 }
