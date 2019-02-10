@@ -19,46 +19,88 @@ class TravelsContent extends Component {
 			this.callLater = this.callLater.bind(this);
 			this.travelEdit = this.travelEdit.bind(this);
 			this.cancelEdit = this.cancelEdit.bind(this);
+			this.travelDelete = this.travelDelete.bind(this);
+			this.callLaterPassed = this.callLaterPassed.bind(this);
 	}//end of constructor
 
 	componentWillReceiveProps(nextProps){
 			const {currentUser} = nextProps.currentUser;
 			var travelsKey = currentUser.offeredtravels;
-			var tempTravels = [];
 			var that = this;
 
 			if (travelsKey !== undefined && travelsKey.length > 1) {
-					this.setState({ noTravels: false});
 					travelsKey.shift();
 					let unique = [...new Set(travelsKey)];
 
+      //travels from db
 					var dbTravels = [];
-					firebase.database().ref('travels/').once('value', function(snapshot) {
-						let data = snapshot.val();
-						for(let child in data){
-							let r = data[child];
-								dbTravels.push(r);
-						}//end of for
-					})//end of db.ref
-					for (var i = 0; i < unique.length; i++) {
-							//console.log("Offered travels: " + unique[i]);
-							for (var it = 0; it < dbTravels.length; it++) {
-									if(dbTravels[it].key === unique[i]){
-										tempTravels.push(dbTravels[it]);
-									} //end of if else
-							}//end of inner for
-				 }//end of for
-				 that.callLater(tempTravels);
+							firebase.database().ref('travels/').once('value', function(snapshot) {
+								let data = snapshot.val();
+								for(let child in data){
+									let r = data[child];
+										dbTravels.push(r);
+								}//end of for
+								that.callLater(dbTravels, unique);
+							})//end of db.ref
+
+
+					//passed travels from db
+							var dbPassedTravels = [];
+							firebase.database().ref('passedtravels/').once('value', function(snapshot) {
+									let data = snapshot.val();
+									for(let child in data){
+											let r = data[child];
+											dbPassedTravels.push(r);
+											console.log("passed travel: " + r.key);
+									}//end of for
+									that.callLaterPassed(dbPassedTravels, unique);
+							})//end of db.ref
+
 			}//end of if
 	}//end of componentWillReceiveProps
 
-	callLater(travels){
-			let unique = [...new Set(travels)];
-			//console.log("Size of travels array is: " + travels.length);
-			for (var i = 0; i < unique.length; i++) {
-					unique[i].edit = false;
+	callLaterPassed(travels, key){
+			var passedTravels = [];
+			for (var i = 0; i < key.length; i++) {
+					//passed travels
+					for (var m = 0; m < travels.length; m++) {
+							console.log("Passed travels: " + travels[m].key);
+							if(travels[m].key === key[i]){
+								passedTravels.push(travels[m]);
+							} //end of if else
+					}//end of inner for
+			}//end of for
+
+			//passed travels
+			if (passedTravels.length > 0) {
+					let unique = [...new Set(passedTravels)];
+					this.setState({ passedtravels: unique});
+					this.setState({ noPassedTravels: false});
 			}
-			this.setState({ travels: unique});
+
+	}
+
+	callLater(travels, keys){
+			var tempTravels = [];
+			for (var i = 0; i < keys.length; i++) {
+					//offered travel not passed
+					for (var it = 0; it < travels.length; it++) {
+							if(travels[it].key === keys[i]){
+								tempTravels.push(travels[it]);
+							} //end of if else
+					}//end of inner for
+			}//end of for
+			if (tempTravels.length > 0) {
+					var unique = [...new Set(tempTravels)];
+					for (var i = 0; i < unique.length; i++) {
+							unique[i].edit = false;
+					}
+					this.setState({ travels: unique});
+					this.setState({ noTravels: false});
+			}
+
+			//console.log("Size of travels array is: " + travels.length);
+
 	}
 
 	travelEdit(key){
@@ -80,6 +122,10 @@ class TravelsContent extends Component {
 					}
 			}
 			this.setState({ travels: tempArray });
+	}
+//Deletes the travel from db
+	travelDelete(key){
+			firebase.database().ref('travels/' + key).remove();
 	}
 
 	render() {
@@ -196,7 +242,7 @@ class TravelsContent extends Component {
 															<div className="TravelBtn" onClick={() => this.travelEdit(travel.key)}>
 																		Edit
 															</div>
-															<div className="TravelBtn TravelBtnRemove">
+															<div className="TravelBtn TravelBtnRemove" onClick={() => this.travelDelete(travel.key)}>
 																		Remove
 															</div>
 													</div>
