@@ -4,6 +4,7 @@ import {actionClickTab} from '../actions/menuActions.js';
 import firebase from '../firebase/firebase.js';
 import './TravelsContent.css';
 import TravelEdit from './TravelEdit.js';
+import PassedTravel from './PassedTravel.js';
 
 
 
@@ -51,7 +52,7 @@ class TravelsContent extends Component {
 									for(let child in data){
 											let r = data[child];
 											dbPassedTravels.push(r);
-											console.log("passed travel: " + r.key);
+											//console.log("passed travel: " + r.key);
 									}//end of for
 									that.callLaterPassed(dbPassedTravels, unique);
 							})//end of db.ref
@@ -64,7 +65,7 @@ class TravelsContent extends Component {
 			for (var i = 0; i < key.length; i++) {
 					//passed travels
 					for (var m = 0; m < travels.length; m++) {
-							console.log("Passed travels: " + travels[m].key);
+							//console.log("Passed travels: " + travels[m].key);
 							if(travels[m].key === key[i]){
 								passedTravels.push(travels[m]);
 							} //end of if else
@@ -74,7 +75,7 @@ class TravelsContent extends Component {
 			//passed travels
 			if (passedTravels.length > 0) {
 					let unique = [...new Set(passedTravels)];
-					this.setState({ passedtravels: unique});
+					this.setState({ passedtravels: passedTravels});
 					this.setState({ noPassedTravels: false});
 			}
 
@@ -129,11 +130,11 @@ class TravelsContent extends Component {
 	}
 
 	render() {
-		const { noTravels, noPassedTravels, travels } = this.state;
-		/*
-		for (var i = 0; i < travels.length; i++) {
-			console.log("travels in render: " + travels[i].key);
-		}*/
+		const { noTravels, noPassedTravels, travels, passedtravels } = this.state;
+
+		for (var i = 0; i < passedtravels.length; i++) {
+			console.log(" passed travels in render: " + passedtravels[i].key);
+		}
 		const listItems = travels.map(function(travel) {
 			var fromCity = travel.fromCity.title.charAt(0).toUpperCase() + travel.fromCity.title.slice(1);
 			var toCity = travel.toCity.title.charAt(0).toUpperCase() + travel.toCity.title.slice(1);
@@ -251,6 +252,11 @@ class TravelsContent extends Component {
 					}//end of if
 			}, this); //end of map
 
+		const passedTrav = passedtravels.map(function(travel) {
+								return <PassedTravel key={travel.key} travel={travel}>
+											 </PassedTravel>
+		}); //end of map
+
 
 
 		return (
@@ -268,7 +274,7 @@ class TravelsContent extends Component {
 										<h3 className="TravelsTitle">Your Offered Travels That Passed</h3>
 										<p className={(noPassedTravels === true) ? "NoMsg LastNoMsg" : "notVisible"}>You have no offered travels that passed!</p>
 										<div className={(noPassedTravels === false) ? "TravelList" : "notVisible"}>
-												Offered travel list
+												{passedTrav}
 										</div>
 							</div>
 

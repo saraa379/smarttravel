@@ -1,0 +1,64 @@
+.notVisible {
+  display: none !important;
+}
+.TravelsSection {
+    background-color: white !important;
+}
+.LastTravelSection {
+    margin-top: 30px;
+}
+.TravelsSection .TravelsTitle {
+    background-color: white;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 20px;
+    text-transform: none;
+}
+
+
+/*Travel item styles*/
+.TravelWrap2 {
+    background-color: inherit;
+    padding: 20px 0 20px 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    color: #575E66;
+    font-family: 'GothamLightRegular';
+    border-bottom: 2px solid #DCDCDC;
+    width: 90%;
+    margin: 0 auto;
+}
+.TravelInfo2 {
+   display: inline;
+}
+.TravelTitle2 {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+.TravelTitle2 h3{
+    display: inline;
+    margin: 0 10px 0 0;
+}
+.TravelTitle2 .fa-caret-right {
+    color: #575E66;
+    font-size: 1.4rem;
+    margin-right: 10px;
+}
+.TravelTitle2 .fa-car {
+    color: #1D7CF2;
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+.TravelInfo2 h4 {
+  font-size: 1rem;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+/*Media queries*/
+@media (min-width: 1200px) {
+
+}
