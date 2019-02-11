@@ -49,7 +49,7 @@ footer {
 }
 .footerTop {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
 }
@@ -111,6 +111,16 @@ footer {
 		font-size: 0.9rem;
 		color: #868e96;
 	}
+
+  @media (max-width: 456px) {
+    .footerTop {
+        flex-flow: column nowrap;
+        justify-content: center;
+    }
+    .shareWrap {
+        margin-top: 20px;
+    }
+  }
 
   @media (max-width: 300px) {
       .footerLinks a {
