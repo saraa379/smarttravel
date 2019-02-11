@@ -67,6 +67,18 @@ footer {
 .footerLinks a:hover {
     color: #0D4F8B;
 }
+.shareWrap {
+    display: inline-flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+.shareComp {
+    width: 183px;
+    height: 35px;
+    margin-right: -183px;
+    z-index: 5;
+}
 .facebookShare {
     display: inline-flex;
     flex-flow: row nowrap;

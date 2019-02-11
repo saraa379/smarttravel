@@ -12,11 +12,13 @@ import Menu from './components/Menu.js';
 import Notexist from "./components/404.js";
 import Profile from "./components/Profile.js";
 import {Link} from 'react-router-dom';
+import {FacebookShareButton} from 'react-share';
 
 
 class App extends Component {
 
   render() {
+    //real url for facebook share - {window.location.href}
     return (
       <Provider store={store}>
 
@@ -38,9 +40,12 @@ class App extends Component {
                                   <Link to="/howitworks">How it works</Link>
                                   <Link to="/faq">Frequently Asked Questions</Link>
                               </div>
-                              <div className="facebookShare">
-                                    <i className="fab fa-facebook-f"></i>
-                                    <span>Share on Facebook</span>
+                              <div className="shareWrap">
+                                    <FacebookShareButton url="www.google.com" className="shareComp"/>
+                                    <div className="facebookShare">
+                                          <i className="fab fa-facebook-f"></i>
+                                          <span>Share on Facebook</span>
+                                    </div>
                               </div>
                           </div>
                           <div className="copy">Copyright &copy; Smart Travel, 2019</div>
