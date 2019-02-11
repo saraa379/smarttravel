@@ -47,3 +47,64 @@ footer {
     color: white;
     opacity: 1;
 }
+.footerTop {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.footerLinks {
+    display: inline-flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+}
+.footerLinks a {
+    margin-top: 10px;
+    color: white;
+    font-size: 1rem;
+    margin-left: 10px;
+}
+.footerLinks a:hover {
+    color: #0D4F8B;
+}
+.facebookShare {
+    display: inline-flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    border: 2px solid white;
+    height: 35px;
+    padding: 7px;
+    cursor: pointer;
+    margin-right: 10px
+}
+.facebookShare:hover {
+    background-color: white;
+    color: #1D2331;
+    font-weight: bold;
+}
+.facebookShare .fa-facebook-f {
+    width: 20px;
+    height: 20px;
+    margin-left: 3px;
+    padding-right: 10px;
+    border-right: 1px solid grey;
+}
+.facebookShare span {
+    margin-left: 10px;
+}
+.copy {
+		text-align: center;
+		margin-top: 40px;
+		font-size: 0.9rem;
+		color: #868e96;
+	}
+
+  @media (max-width: 300px) {
+      .footerLinks a {
+          margin-left: 0;
+      }
+      .facebookShare {
+          margin-right: 0;
+      }
+  }
