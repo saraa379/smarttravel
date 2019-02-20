@@ -88,7 +88,8 @@ footer {
     height: 35px;
     padding: 7px;
     cursor: pointer;
-    margin-right: 10px
+    margin-right: 10px;
+    cursor: pointer;
 }
 .facebookShare:hover {
     background-color: white;

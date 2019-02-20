@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import firebase from '../firebase/firebase.js';
 import './PassedTravel.css';
-import TravelEdit from './TravelEdit.js';
+//import TravelEdit from './TravelEdit.js';
 
 
 
@@ -16,13 +15,13 @@ class PassedTravel extends Component {
 										passedtravels: []
 		  };
 	}//end of constructor
-
+/*
 	componentWillReceiveProps(nextProps){
 			const travel = nextProps.travel;
 
 	}//end of componentWillReceiveProps
 
-
+*/
 	render() {
 		const travel = this.props.travel;
 

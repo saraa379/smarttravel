@@ -101,7 +101,7 @@ class TravelEdit extends Component {
 				if (content !== "") {
 						firebase.database().ref('travels/' + travel.key + '/content').set(content);
 				}
-				
+
 				this.props.cancel(travel.key);
    }
 	 //cancels the editing and closes the edit page
@@ -111,7 +111,7 @@ class TravelEdit extends Component {
 	    }
 
 	render() {
-		const { travel, selectedDay, datePickerVisible, price, content } = this.state;
+		const { travel, selectedDay, datePickerVisible } = this.state;
 		var fromCity = "Departure city";
 		var toCity = "Destination city";
 		var contentw = "Enter a description";

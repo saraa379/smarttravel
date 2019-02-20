@@ -160,11 +160,11 @@ class Home extends Component {
 				//console.log("Both cities are chosen: " + departCity);
 				//console.log("Both cities are chosen: " + destCity);
 				//search departure city match
-				for (var i = 0; i < travels.length; i++) {
-					var city2 = travels[i].fromCity.title.toLowerCase();
+				for (var a = 0; a < travels.length; a++) {
+					var city2 = travels[a].fromCity.title.toLowerCase();
 					//console.log("Matching departure cities: " + travels[i].fromCity.title);
 					if (city2 === departCity2) {
-							departCityMatchArray.push(travels[i]);
+							departCityMatchArray.push(travels[a]);
 							//console.log("Matching departure cities: " + travels[i].fromCity.title);
 					}
 				}//end of for
@@ -173,10 +173,10 @@ class Home extends Component {
 						this.setState({ travels: departCityMatchArray });
 				} else {
 						this.setState({ noMatchMsg: true });
-						for (var i = 0; i < travels.length; i++) {
-							var cityCounty = travels[i].fromCity.county.toLowerCase();
+						for (var b = 0; b < travels.length; b++) {
+							var cityCounty = travels[b].fromCity.county.toLowerCase();
 							if (cityCounty === departCounty2) {
-									departCityMatchArray.push(travels[i]);
+									departCityMatchArray.push(travels[b]);
 									//console.log("Matching departure cities: " + travels[i].fromCity.title);
 							}
 						}//end of for
@@ -191,11 +191,11 @@ class Home extends Component {
 							var destCity2 = destinationCity.title.toLowerCase();
 							var destCounty2 = destinationCity.county.toLowerCase();
 
-							for (var i = 0; i < travels.length; i++) {
-								var city3 = travels[i].toCity.title.toLowerCase();
+							for (var c = 0; c < travels.length; c++) {
+								var city3 = travels[c].toCity.title.toLowerCase();
 								//console.log("Matching departure cities: " + travels[i].fromCity.title);
 								if (city3 === destCity2) {
-										destCityMatchArray.push(travels[i]);
+										destCityMatchArray.push(travels[c]);
 										//console.log("Matching departure cities: " + travels[i].fromCity.title);
 								}
 							}//end of for
@@ -204,10 +204,10 @@ class Home extends Component {
 									this.setState({ travels: destCityMatchArray });
 							} else {
 									this.setState({ noMatchMsg: true });
-									for (var i = 0; i < travels.length; i++) {
-										var cityCounty2 = travels[i].toCity.county.toLowerCase();
+									for (var d = 0; d < travels.length; d++) {
+										var cityCounty2 = travels[d].toCity.county.toLowerCase();
 										if (cityCounty2 === destCounty2) {
-												destCityMatchArray.push(travels[i]);
+												destCityMatchArray.push(travels[d]);
 												//console.log("Matching departure cities: " + travels[i].fromCity.title);
 										}
 									}//end of for

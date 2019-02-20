@@ -196,8 +196,8 @@ class Profile extends Component {
 													     onClick={() => this.menuClick("about")}>About</div>
 													<div className={(chosenTab === "travels") ? "Btn chosenBtn" : "Btn"}
 													     onClick={() => this.menuClick("travels")}>Offered Travels</div>
-													<div className={(chosenTab === "messages") ? "Btn chosenBtn LastBtn" : "Btn LastBtn"}
-													     onClick={() => this.menuClick("messages")}>Messages</div>
+													<div className={(chosenTab === "messages") ? "Btn chosenBtn LastBtn" : "Btn LastBtn NotClickable"}
+													     >Messages</div>
 										</div>
 										<div className="ProfileMenuContent">
 													<div className={(chosenTab === "about") ? "AboutContent" : "notVisible"}>
@@ -289,14 +289,6 @@ class Profile extends Component {
 																			<p>{email}</p>
 																	</div>
 															</div>
-
-															<div className="Password">
-																	<div className="FlexWrap">
-																			<label>Password</label>
-																			<p>{pass}</p>
-																	</div>
-															</div>
-
 
 													</div>
 

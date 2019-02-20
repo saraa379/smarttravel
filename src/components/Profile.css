@@ -101,6 +101,7 @@
     margin-left: 20px;
     margin-right: 20px;
     font-weight: bold;
+    cursor: pointer;
 }
 .chosenBtn {
     border-bottom: 3px solid rgba(10, 69, 220, 0.7) !important;
@@ -108,6 +109,9 @@
 }
 .ProfileMenu .Btn:hover {
     color: rgb(10, 69, 220) !important;
+}
+.NotClickable {
+    background-color: #F8F8F8 !important;
 }
 .ProfileMenuContent {
     background-color: white;

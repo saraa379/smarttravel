@@ -24,6 +24,42 @@ class TravelsContent extends Component {
 			this.callLaterPassed = this.callLaterPassed.bind(this);
 	}//end of constructor
 
+	componentWillMount(){
+			const {currentUser} = this.props.currentUser;
+			var travelsKey = currentUser.offeredtravels;
+			var that = this;
+
+			if (travelsKey !== undefined && travelsKey.length > 1) {
+					travelsKey.shift();
+					let unique = [...new Set(travelsKey)];
+
+      //travels from db
+					var dbTravels = [];
+							firebase.database().ref('travels/').once('value', function(snapshot) {
+								let data = snapshot.val();
+								for(let child in data){
+									let r = data[child];
+										dbTravels.push(r);
+								}//end of for
+								that.callLater(dbTravels, unique);
+							})//end of db.ref
+
+
+					//passed travels from db
+							var dbPassedTravels = [];
+							firebase.database().ref('passedtravels/').once('value', function(snapshot) {
+									let data = snapshot.val();
+									for(let child in data){
+											let r = data[child];
+											dbPassedTravels.push(r);
+											//console.log("passed travel: " + r.key);
+									}//end of for
+									that.callLaterPassed(dbPassedTravels, unique);
+							})//end of db.ref
+
+			}//end of if
+	}//end of componentWillReceiveProps
+
 	componentWillReceiveProps(nextProps){
 			const {currentUser} = nextProps.currentUser;
 			var travelsKey = currentUser.offeredtravels;
@@ -74,7 +110,7 @@ class TravelsContent extends Component {
 
 			//passed travels
 			if (passedTravels.length > 0) {
-					let unique = [...new Set(passedTravels)];
+					//let unique = [...new Set(passedTravels)];
 					this.setState({ passedtravels: passedTravels});
 					this.setState({ noPassedTravels: false});
 			}
@@ -93,15 +129,13 @@ class TravelsContent extends Component {
 			}//end of for
 			if (tempTravels.length > 0) {
 					var unique = [...new Set(tempTravels)];
-					for (var i = 0; i < unique.length; i++) {
-							unique[i].edit = false;
+					for (var a = 0; a < unique.length; a++) {
+							unique[a].edit = false;
 					}
 					this.setState({ travels: unique});
 					this.setState({ noTravels: false});
 			}
-
 			//console.log("Size of travels array is: " + travels.length);
-
 	}
 
 	travelEdit(key){

@@ -115,6 +115,10 @@
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+}
+.findBtn:hover {
+    opacity: 0.7;
 }
 .findBtn p {
     display: inline;
