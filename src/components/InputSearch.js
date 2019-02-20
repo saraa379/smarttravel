@@ -207,6 +207,7 @@ class InputSearch extends Component {
  	if (event.target.value === "") {
  			this.setState({ cityResult: [] });
  			this.setState({ cityResultVisible: false });
+			this.props.callbackGetDepartCity("");
  	} else {
  				var term = event.target.value.toLowerCase();
  				//console.log("Lower case term: " + term);

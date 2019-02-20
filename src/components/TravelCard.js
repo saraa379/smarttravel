@@ -1,5 +1,5 @@
 /*
-		Placeholder component for How It Works page
+	 imported in Home component
 */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';

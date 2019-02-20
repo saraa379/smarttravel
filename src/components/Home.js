@@ -42,7 +42,8 @@ class Home extends Component {
 										travels: [],
 										currentPage: 1,
 										itemsPerPage: 5,
-										noMatchMsg: false
+										noMatchMsg: false,
+										persistentTravels: []
 		  };
 			this.getDepartureCity = this.getDepartureCity.bind(this);
 			this.getDestinationCity = this.getDestinationCity.bind(this);
@@ -66,6 +67,9 @@ class Home extends Component {
 		that.setState({
 				travels: dataArray
 		});
+		that.setState({
+				persistentTravels: dataArray
+		});
 	}
 
 	componentDidMount(){
@@ -77,16 +81,19 @@ class Home extends Component {
 		this.setState({ destinationCityError: false });
 		this.setState({ noMatchMsg: false });
 		//console.log("Search button is clicked");
-		const { departureCity, destinationCity, travels } = this.state;
+		const { departureCity, destinationCity, travels, persistentTravels } = this.state;
+		this.setState({ travels: persistentTravels });
+		/*
 		if (departureCity === "") {
 				this.setState({ departureCityError: true });
 		}
 		if (destinationCity === "") {
 				this.setState({ destinationCityError: true });
-		}
+		}*/
 		//search functionality
 		//var tempArray = [];
 		var departCityMatchArray = []; //here matches departure cities
+		//console.log("Length of departure city: " + departCityMatchArray.length)
 		var destCityMatchArray = []; //here matches both departure and dest cities
 		var destCountyMatchArray = []; //here matches both departure city and dest county
 		if (departureCity !== "" && destinationCity !== ""){
@@ -142,9 +149,73 @@ class Home extends Component {
 
 				} else {
 						this.setState({ noMatchMsg: true });
-				}
+				}//end of if else
 
-		}
+		}//end of if both cities match
+
+//Searching only on departure city value
+		if (departureCity !== "" && destinationCity === ""){
+				var departCity2 = departureCity.title.toLowerCase();
+				var departCounty2 = departureCity.county.toLowerCase();
+				//console.log("Both cities are chosen: " + departCity);
+				//console.log("Both cities are chosen: " + destCity);
+				//search departure city match
+				for (var i = 0; i < travels.length; i++) {
+					var city2 = travels[i].fromCity.title.toLowerCase();
+					//console.log("Matching departure cities: " + travels[i].fromCity.title);
+					if (city2 === departCity2) {
+							departCityMatchArray.push(travels[i]);
+							//console.log("Matching departure cities: " + travels[i].fromCity.title);
+					}
+				}//end of for
+
+				if (departCityMatchArray.length > 0) {
+						this.setState({ travels: departCityMatchArray });
+				} else {
+						this.setState({ noMatchMsg: true });
+						for (var i = 0; i < travels.length; i++) {
+							var cityCounty = travels[i].fromCity.county.toLowerCase();
+							if (cityCounty === departCounty2) {
+									departCityMatchArray.push(travels[i]);
+									//console.log("Matching departure cities: " + travels[i].fromCity.title);
+							}
+						}//end of for
+						if (departCityMatchArray.length > 0) {
+								this.setState({ travels: departCityMatchArray });
+						}
+				} //end of if
+			}//end of if county match
+
+			//Searching only on destination city value
+					if (departureCity === "" && destinationCity !== ""){
+							var destCity2 = destinationCity.title.toLowerCase();
+							var destCounty2 = destinationCity.county.toLowerCase();
+
+							for (var i = 0; i < travels.length; i++) {
+								var city3 = travels[i].toCity.title.toLowerCase();
+								//console.log("Matching departure cities: " + travels[i].fromCity.title);
+								if (city3 === destCity2) {
+										destCityMatchArray.push(travels[i]);
+										//console.log("Matching departure cities: " + travels[i].fromCity.title);
+								}
+							}//end of for
+
+							if (destCityMatchArray.length > 0) {
+									this.setState({ travels: destCityMatchArray });
+							} else {
+									this.setState({ noMatchMsg: true });
+									for (var i = 0; i < travels.length; i++) {
+										var cityCounty2 = travels[i].toCity.county.toLowerCase();
+										if (cityCounty2 === destCounty2) {
+												destCityMatchArray.push(travels[i]);
+												//console.log("Matching departure cities: " + travels[i].fromCity.title);
+										}
+									}//end of for
+									if (destCityMatchArray.length > 0) {
+											this.setState({ travels: destCityMatchArray });
+									}
+							} //end of if
+						}//end of if county match
 
 	}
 
